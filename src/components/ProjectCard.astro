@@ -5,69 +5,353 @@ import SitePreview from './SitePreview.astro';
 interface Props {
   project: Project;
   class?: string;
+  compact?: boolean;
 }
 
-const { project, class: className = '' } = Astro.props;
+const { project, class: className = '', compact = false } = Astro.props;
+const modalId = `modal-${project.slug}`;
 ---
 
-<a
-  href={project.url}
-  target="_blank"
-  rel="noopener noreferrer"
-  class:list={['card reveal group grid overflow-hidden p-0 lg:grid-cols-[1.08fr_0.92fr]', className]}
+<article
+  class:list={[
+    'project-card card reveal group relative flex flex-col overflow-hidden p-0 transition-all duration-300 hover:border-gold-500/40 hover:shadow-lg',
+    compact ? 'h-full' : '',
+    className,
+  ]}
 >
-  <div class="border-b border-line bg-parchment-50/50 p-4 md:p-6 lg:border-r lg:border-b-0">
+  <!-- Card Preview Image -->
+  <div
+    class="card-trigger cursor-pointer border-b border-line bg-parchment-50/50 p-4 md:p-5 transition-opacity hover:opacity-95"
+    data-modal-target={modalId}
+    role="button"
+    tabindex="0"
+    aria-label={`Buka detail ${project.title}`}
+  >
     <SitePreview
       src={project.preview}
       alt={project.previewAlt}
       domain={project.domain}
-      class="shadow-[0_24px_50px_-36px_rgba(10,28,51,0.6)]"
+      class="shadow-[0_16px_36px_-24px_rgba(10,28,51,0.4)]"
     />
   </div>
 
-  <div class="flex flex-col justify-center p-6 md:p-8">
+  <!-- Card Body (Tampilan Awal Ringkas) -->
+  <div class="flex flex-1 flex-col p-5 md:p-6">
     <div class="flex flex-wrap items-center gap-2">
-      <span class="chip">{project.industry}</span>
-      <span class="chip">{project.year}</span>
+      <span class="chip text-xs">{project.industry}</span>
+      <span class="chip text-xs">{project.year}</span>
       <span class="ml-auto flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-gold-600 uppercase">
-        <span class="size-1.5 rounded-full bg-gold-500" />
+        <span class="size-1.5 rounded-full bg-gold-500 animate-pulse"></span>
         live
       </span>
     </div>
 
-    <h3 class="mt-5 text-2xl leading-snug font-semibold tracking-[-0.01em] text-navy-950 transition-colors group-hover:text-gold-600">
+    <!-- Title & Client -->
+    <h3
+      class="card-trigger mt-4 cursor-pointer text-xl leading-snug font-semibold tracking-[-0.01em] text-navy-950 transition-colors group-hover:text-gold-600"
+      data-modal-target={modalId}
+    >
       {project.title}
     </h3>
-    <p class="mt-1.5 text-sm text-navy-600">{project.client}</p>
-    <p class="mt-4 text-sm leading-relaxed text-navy-700">{project.summary}</p>
+    <p class="mt-1 text-sm font-medium text-navy-600">{project.client}</p>
 
-    <ul class="mt-6 space-y-2.5">
-      {
-        project.highlights.map((item) => (
-          <li class="flex gap-2.5 text-sm leading-relaxed text-navy-700">
-            <span class="mt-2 size-1.5 shrink-0 rounded-full bg-gold-500" />
-            {item}
-          </li>
-        ))
-      }
-    </ul>
+    <!-- Deskripsi Singkat -->
+    <p class="mt-3 text-[13.5px] leading-relaxed text-navy-700">
+      {project.shortSummary}
+    </p>
 
-    <div class="mt-6 flex flex-wrap gap-1.5">
-      {project.stack.map((tech) => <span class="chip">{tech}</span>)}
-    </div>
-
-    <div class="mt-7 flex items-center justify-between gap-4 border-t border-line pt-5">
-      <span class="min-w-0">
-        <span class="block truncate font-mono text-xs text-navy-700">{project.domain}</span>
-        <span class="mt-1 block text-[11px] text-navy-600">Buka di tab baru</span>
-      </span>
-      <span
-        class="flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-navy-700 transition-colors group-hover:border-gold-500 group-hover:text-gold-600"
+    <!-- Tombol Buka Pop-up Detail -->
+    <div class="mt-auto pt-5">
+      <button
+        type="button"
+        class="card-trigger btn btn-ghost w-full justify-center gap-2 border-line bg-parchment-100/50 hover:bg-gold-500/10 hover:border-gold-500/60 text-xs py-2.5 px-4 font-semibold text-navy-900 transition-all hover:scale-[1.01]"
+        data-modal-target={modalId}
       >
-        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+        <svg class="size-4 text-gold-600 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
-      </span>
+        <span>Lihat Detail Lengkap</span>
+      </button>
     </div>
   </div>
-</a>
+
+  <!-- Native HTML5 Dialog Pop-up Detail dengan Animasi Halus -->
+  <dialog
+    id={modalId}
+    class="project-modal fixed inset-0 m-auto max-h-[90vh] w-[92vw] max-w-2xl overflow-y-auto rounded-2xl border border-line bg-parchment-50 p-0 text-navy-900 shadow-2xl"
+  >
+    <div class="flex flex-col">
+      <!-- Modal Header -->
+      <div class="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-parchment-50/95 px-6 py-4 backdrop-blur-md">
+        <div class="min-w-0 pr-4">
+          <div class="flex items-center gap-2">
+            <span class="chip text-[11px]">{project.industry}</span>
+            <span class="chip text-[11px]">{project.year}</span>
+          </div>
+          <h2 class="mt-1.5 truncate text-lg font-bold text-navy-950 sm:text-xl">
+            {project.title}
+          </h2>
+          <p class="text-xs text-navy-600 truncate">{project.client}</p>
+        </div>
+
+        <button
+          type="button"
+          class="modal-close-btn flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-navy-600 transition-all hover:border-gold-500 hover:bg-gold-500/10 hover:text-navy-950 hover:rotate-90 duration-200"
+          aria-label="Tutup pop-up"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="space-y-6 p-6">
+        <!-- Preview Mockup -->
+        <div class="modal-item-animate overflow-hidden rounded-xl">
+          <SitePreview
+            src={project.preview}
+            alt={project.previewAlt}
+            domain={project.domain}
+            class="shadow-md"
+          />
+        </div>
+
+        <!-- Deskripsi Lengkap -->
+        <div class="modal-item-animate">
+          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Tentang Proyek</h3>
+          <p class="mt-2 text-sm leading-relaxed text-navy-800">
+            {project.summary}
+          </p>
+        </div>
+
+        <!-- Fitur & Sorotan -->
+        {project.highlights && project.highlights.length > 0 && (
+          <div class="modal-item-animate">
+            <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Fitur Utama & Sorotan</h3>
+            <ul class="mt-2 space-y-2">
+              {project.highlights.map((item) => (
+                <li class="flex items-start gap-2.5 text-sm leading-relaxed text-navy-700">
+                  <span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold-500"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Stack Teknologi -->
+        <div class="modal-item-animate">
+          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Teknologi / Stack Digunakan</h3>
+          <div class="mt-2.5 flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <span class="chip border-line bg-parchment-200/90 text-navy-800 text-xs font-mono font-medium px-2.5 py-1">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="sticky bottom-0 z-10 flex flex-wrap items-center justify-end gap-3 border-t border-line bg-parchment-50/95 px-6 py-4 backdrop-blur-md">
+        <button
+          type="button"
+          class="modal-close-btn btn btn-ghost text-xs px-4 py-2 text-navy-700 hover:bg-parchment-200/60"
+        >
+          Tutup
+        </button>
+
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary text-xs px-5 py-2 font-semibold shadow-md flex items-center gap-2 hover:scale-[1.02] transition-transform"
+        >
+          <span>Kunjungi Website ({project.domain})</span>
+          <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </dialog>
+</article>
+
+<style>
+  /* Animasi Masuk Pop-up & Backdrop */
+  .project-modal[open] {
+    animation: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .project-modal[open]::backdrop {
+    animation: backdropFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Animasi Keluar Pop-up & Backdrop */
+  .project-modal.modal-closing {
+    animation: modalPopOut 0.22s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+  }
+
+  .project-modal.modal-closing::backdrop {
+    animation: backdropFadeOut 0.22s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+  }
+
+  @keyframes modalPopIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.92) translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes modalPopOut {
+    0% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.94) translateY(14px);
+    }
+  }
+
+  @keyframes backdropFadeIn {
+    0% {
+      opacity: 0;
+      background-color: rgba(10, 28, 51, 0);
+      backdrop-filter: blur(0px);
+    }
+    100% {
+      opacity: 1;
+      background-color: rgba(10, 28, 51, 0.72);
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  @keyframes backdropFadeOut {
+    0% {
+      opacity: 1;
+      background-color: rgba(10, 28, 51, 0.72);
+      backdrop-filter: blur(8px);
+    }
+    100% {
+      opacity: 0;
+      background-color: rgba(10, 28, 51, 0);
+      backdrop-filter: blur(0px);
+    }
+  }
+
+  /* Micro-animation stagger untuk isi konten modal */
+  .modal-item-animate {
+    animation: modalItemFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .modal-item-animate:nth-child(1) { animation-delay: 0.06s; }
+  .modal-item-animate:nth-child(2) { animation-delay: 0.12s; }
+  .modal-item-animate:nth-child(3) { animation-delay: 0.18s; }
+  .modal-item-animate:nth-child(4) { animation-delay: 0.24s; }
+
+  @keyframes modalItemFadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  function setupProjectModals() {
+    const triggers = document.querySelectorAll<HTMLElement>('[data-modal-target]');
+
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.modalBound === 'true') return;
+      trigger.dataset.modalBound = 'true';
+
+      const targetId = trigger.dataset.modalTarget;
+      if (!targetId) return;
+
+      const modal = document.getElementById(targetId) as HTMLDialogElement | null;
+      if (!modal) return;
+
+      const openModal = () => {
+        modal.classList.remove('modal-closing');
+        modal.showModal();
+        document.body.style.overflow = 'hidden';
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal();
+      });
+
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal();
+        }
+      });
+    });
+
+    const modals = document.querySelectorAll<HTMLDialogElement>('.project-modal');
+    modals.forEach((modal) => {
+      if (modal.dataset.modalInit === 'true') return;
+      modal.dataset.modalInit = 'true';
+
+      let isClosing = false;
+      const closeModal = () => {
+        if (isClosing || !modal.open) return;
+        isClosing = true;
+        modal.classList.add('modal-closing');
+
+        setTimeout(() => {
+          modal.close();
+          modal.classList.remove('modal-closing');
+          document.body.style.overflow = '';
+          isClosing = false;
+        }, 220);
+      };
+
+      const closeButtons = modal.querySelectorAll('.modal-close-btn');
+      closeButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeModal();
+        });
+      });
+
+      // Klik backdrop untuk menutup modal
+      modal.addEventListener('click', (e) => {
+        const dialogDimensions = modal.getBoundingClientRect();
+        if (
+          e.clientX < dialogDimensions.left ||
+          e.clientX > dialogDimensions.right ||
+          e.clientY < dialogDimensions.top ||
+          e.clientY > dialogDimensions.bottom
+        ) {
+          closeModal();
+        }
+      });
+
+      // Escape key handler agar animasi exit tetap berjalan
+      modal.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeModal();
+      });
+    });
+  }
+
+  setupProjectModals();
+  document.addEventListener('astro:page-load', setupProjectModals);
+</script>

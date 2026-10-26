@@ -120,8 +120,47 @@ export const services: Service[] = [
     stack: ['Flutter', 'Dart', 'REST API', 'SQLite', 'Firebase'],
   },
   {
-    slug: 'perawatan-website',
+    slug: 'sistem-tertanam-iot',
     number: '04',
+    icon: 'cpu',
+    title: 'Sistem Tertanam atau Internet of Things (IoT)',
+    shortTitle: 'Sistem Tertanam / IoT',
+    tagline: 'Integrasi hardware pintar, sensor presisi, dan dashboard cloud untuk otomasi nyata.',
+    summary: 'Pengembangan firmware mikrokontroler, akuisisi data sensor, kontrol aktuator, dan dashboard telemetri real-time.',
+    description:
+      'Solusi hardware terhubung untuk bisnis, industri, atau riset. Kami merancang firmware andal, rangkaian skematik yang stabil, serta sistem komunikasi cloud dua arah yang hemat daya dan siap bekerja di lapangan.',
+    features: [
+      {
+        title: 'Firmware stabil & real-time',
+        description: 'Pemrograman mikrokontroler (ESP32, STM32, Arduino) dengan protokol MQTT, HTTP, WebSocket, atau Modbus yang teruji.',
+      },
+      {
+        title: 'Integrasi sensor & kontrol',
+        description: 'Akuisisi data presisi tinggi dari sensor lingkungan, suhu, flow meter, hingga kontrol otomatis relay dan motor.',
+      },
+      {
+        title: 'Dashboard monitoring & alert',
+        description: 'Visualisasi grafik metrik real-time, log histori data, serta notifikasi instan via WhatsApp atau Telegram jika ada anomali.',
+      },
+      {
+        title: 'Desain rangkaian handal',
+        description: 'Penyusunan skematik, layout PCB, dan wiring yang aman dari gangguan kelistrikan industri serta hemat konsumsi daya.',
+      },
+    ],
+    deliverables: [
+      'Source code firmware & arsitektur modul',
+      'Skematik rangkaian & panduan wiring',
+      'Integrasi backend API / dashboard monitoring',
+      'Pengujian fungsional unit & kalibrasi',
+      'Dokumentasi teknis & panduan instalasi',
+    ],
+    timeline: '4–8 minggu',
+    startingPrice: 'Rp 2 juta',
+    stack: ['ESP32', 'STM32', 'C/C++', 'MQTT', 'Node.js', 'PostgreSQL', 'WebSockets'],
+  },
+  {
+    slug: 'perawatan-website',
+    number: '05',
     icon: 'shield',
     title: 'Perawatan & Dukungan Bulanan',
     shortTitle: 'Perawatan',

@@ -1,33 +1,49 @@
 ---
 import { waLink } from '../data/site';
-import { featuredProject as featured } from '../data/projects';
+import LogoMark from '../components/LogoMark.astro';
 ---
 
-<section class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
+<section class="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16 min-h-[560px] lg:min-h-[640px] flex items-center">
   <div class="grid-lines"></div>
-    <div class="glow -top-32 left-1/2 size-[42rem] -translate-x-1/2 text-gold-400/18"></div>
-    <div class="glow glow-drift -top-10 right-0 size-[24rem] text-steel-500/12"></div>
+  <div class="glow -top-32 left-1/2 size-[42rem] -translate-x-1/2 text-gold-400/18"></div>
+  <div class="glow glow-drift -top-10 right-0 size-[28rem] text-steel-500/15"></div>
 
-  <div class="shell relative">
-    <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+  <!-- Massive Watermark Logo on the right (matching user yellow boundary) -->
+  <div
+    class="pointer-events-none select-none absolute right-[-8%] sm:right-[-4%] lg:right-[0%] xl:right-[2%] top-1/2 -translate-y-1/2 w-[78vw] sm:w-[62vw] lg:w-[50vw] xl:w-[47vw] max-w-[880px] aspect-[1328/1527] flex items-center justify-center opacity-80 lg:opacity-100"
+  >
+    <!-- Subtle radial glow behind the emblem -->
+    <div class="absolute inset-0 bg-radial from-steel-500/15 dark:from-gold-400/15 via-transparent to-transparent blur-3xl opacity-80"></div>
+
+    <LogoMark
+      outline={true}
+      strokeWidth="1.85"
+      strokeOpacity="0.5"
+      fillOpacity="0.04"
+      class="w-full h-full text-navy-800/45 dark:text-gold-400/45 filter drop-shadow-[0_0_32px_rgba(74,123,167,0.18)] dark:drop-shadow-[0_0_32px_rgba(217,176,106,0.18)] transition-all duration-500"
+    />
+  </div>
+
+  <div class="shell relative z-10 w-full py-4">
+    <div class="max-w-xl lg:max-w-2xl">
       <div data-hero>
         <p class="eyebrow">Software Company</p>
 
         <h1
-          class="mt-6 text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-navy-950 sm:text-[3.6rem] lg:text-[4rem]"
+          class="mt-6 text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-navy-950 sm:text-[3.6rem] lg:text-[3.9rem]"
         >
           Kode yang rapi.<br />
           Bisnis yang<br />
           <span class="text-gold-600">jalan lebih cepat.</span>
         </h1>
 
-        <p class="mt-7 max-w-lg text-[15px] leading-relaxed text-navy-700 md:text-base">
+        <p class="mt-6 max-w-lg text-[15px] leading-relaxed text-navy-700 md:text-base">
           Aksara Developer membangun website, sistem operasional, dan aplikasi mobile untuk UMKM
           dan startup Indonesia yang sudah lelah menambal banyak tools. Satu tim, satu titik
           tanggung jawab.
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3">
+        <div class="mt-8 flex flex-wrap items-center gap-3">
           <a href={waLink()} target="_blank" rel="noopener" class="btn btn-primary">
             Diskusi project Anda
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -38,36 +54,6 @@ import { featuredProject as featured } from '../data/projects';
             Lihat hasil kerja
           </a>
         </div>
-      </div>
-
-        <div class="relative">
-        <div class="frame-gold relative overflow-hidden bg-parchment-50 px-6 pt-8 pb-6 shadow-[0_36px_70px_-40px_rgba(10,28,51,0.55)]">
-          <div class="grid-lines opacity-70"></div>
-          <div class="relative flex flex-col items-center text-center">
-            <span class="logo-chip size-44">
-              <img src="/logo-mark.png" alt="" width="384" height="376" />
-            </span>
-            <p class="text-serif mt-4 text-[11px] tracking-[0.22em] text-gold-700 uppercase">Aksara Developer</p>
-          </div>
-        </div>
-
-        {
-          featured && (
-            <a
-              href={featured.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="surface-navy absolute -bottom-6 left-4 right-4 rounded-2xl border border-gold-500/30 px-4 py-4 shadow-[0_22px_40px_-28px_rgba(10,28,51,0.85)] sm:left-6 sm:right-auto sm:w-[17rem]"
-            >
-              <p class="text-[10px] tracking-[0.16em] text-gold-300 uppercase">{featured.industry}</p>
-              <p class="mt-1.5 text-sm leading-snug font-semibold text-on-deep">{featured.title}</p>
-              <p class="mt-3 flex items-center gap-1.5 text-[11px] text-gold-300">
-                <span class="size-1.5 rounded-full bg-gold-300"></span>
-                Live · buka website
-              </p>
-            </a>
-          )
-        }
       </div>
     </div>
   </div>

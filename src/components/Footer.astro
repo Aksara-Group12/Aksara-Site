@@ -1,6 +1,7 @@
 ---
 import { site, waLink } from '../data/site';
 import { services } from '../data/services';
+import LogoMark from '../components/LogoMark.astro';
 
 const year = new Date().getFullYear();
 ---
@@ -16,8 +17,8 @@ const year = new Date().getFullYear();
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
       <div>
         <a href="/" class="flex items-center gap-3">
-          <span class="flex size-11 items-center justify-center rounded-full border border-gold-500/60 bg-paper-cream shadow-[0_0_0_4px_rgba(184,134,60,0.12)]">
-            <img src="/logo-mark.png" alt="" width="384" height="376" class="h-7 w-auto" />
+          <span class="flex size-11 items-center justify-center">
+            <LogoMark class="logo-mark--on-dark" />
           </span>
           <span class="text-serif text-[15px] leading-none font-semibold text-on-deep">
             Aksara<span class="ml-1.5 text-on-deep-muted/70">Developer</span>

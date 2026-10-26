@@ -20,7 +20,10 @@ const bindPage = () => {
       const parent = el.parentElement ?? document.body;
       const index = counters.get(parent) ?? 0;
       counters.set(parent, index + 1);
-      el.style.setProperty('--reveal-delay', `${Math.min(index, 8) * 70}ms`);
+      // only auto-calculate delay if no explicit delay is set
+      if (!el.style.getPropertyValue('--reveal-delay')) {
+        el.style.setProperty('--reveal-delay', `${Math.min(index, 8) * 70}ms`);
+      }
     }
 
     revealObserver = new IntersectionObserver(

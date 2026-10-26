@@ -1,23 +1,25 @@
 ---
-import SectionHeader from './SectionHeader.astro';
 import ProjectCard from './ProjectCard.astro';
 import { projects } from '../data/projects';
 
 const project = projects[0];
 ---
 
-<section class="relative border-y border-line bg-parchment-200/30 pb-20 md:pb-28">
+<section class="relative border-y border-line bg-parchment-200/30 pt-14 pb-16 md:pt-18 md:pb-24">
   <div class="shell">
-    <SectionHeader
-      title="Hasil kerja, bukan janji di halaman depan."
-      description="Kami tidak memajang mockup. Kartu di bawah membawa Anda langsung ke website yang benar-benar berjalan."
-    >
-      <span slot="eyebrow">Portfolio</span>
-    </SectionHeader>
+    <div class="max-w-2xl reveal">
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="mt-4 text-[1.9rem] leading-tight font-bold tracking-[-0.025em] text-navy-950 sm:text-[2.4rem]">
+        Hasil kerja, bukan janji di halaman depan.
+      </h2>
+      <p class="mt-3 text-[15px] leading-relaxed text-navy-700">
+        Kami tidak memajang mockup. Kartu di bawah membawa Anda langsung ke website yang benar-benar berjalan.
+      </p>
+    </div>
 
-    {project && <ProjectCard project={project} class="mt-12" />}
+    {project && <ProjectCard project={project} class="mt-6 md:mt-8" />}
 
-    <div class="mt-10 flex justify-center">
+    <div class="mt-8 flex justify-center">
       <a href="/portfolio" class="btn btn-ghost">
         Semua project
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

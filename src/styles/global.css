@@ -376,12 +376,6 @@
     border-radius: 999px;
     flex: none;
   }
-
-  .logo-chip img {
-    display: block;
-    height: 100%;
-    width: auto;
-  }
 }
 
 html.dark {
@@ -437,22 +431,24 @@ html.dark .btn-primary {
     0 12px 24px -16px rgba(0, 0, 0, 0.8);
 }
 
-html.dark .logo-chip {
-  background: var(--color-paper-cream);
-  box-shadow: 0 0 0 1px rgba(201, 169, 120, 0.35);
-}
-
-html.dark .logo-chip img {
+.logo-mark {
+  display: block;
+  width: 68%;
   height: 68%;
+  color: #183052;
 }
 
-.logo-chip--always {
-  background: var(--color-paper-cream);
-  box-shadow: 0 0 0 1px rgba(201, 169, 120, 0.35);
+.logo-mark--fill {
+  width: 100%;
+  height: 100%;
 }
 
-.logo-chip--always img {
-  height: 68%;
+html.dark .logo-mark {
+  color: #f5ecd7;
+}
+
+.logo-mark--on-dark {
+  color: #f5ecd7;
 }
 
 .theme-icon--sun {
@@ -715,7 +711,7 @@ html.dark .theme-icon--moon {
 @media (min-width: 1024px) {
   .service-rail {
     flex-direction: row;
-    height: 26rem;
+    height: 28.5rem;
   }
 
   .service-rail__item {
@@ -724,7 +720,7 @@ html.dark .theme-icon--moon {
   }
 
   .service-rail__item[data-active] {
-    flex: 2.6 1 0%;
+    flex: 2.8 1 0%;
     cursor: default;
   }
 
@@ -834,3 +830,63 @@ html.dark .theme-icon--moon {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+/* ==========================================================================
+   THEME SWITCH RIPPLE ANIMATION (Lingkaran menyebar dari tombol tema)
+   ========================================================================== */
+html.theme-ripple-transition::view-transition-old(root),
+html.theme-ripple-transition::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-ripple-transition::view-transition-old(root) {
+  z-index: 1;
+}
+
+html.theme-ripple-transition::view-transition-new(root) {
+  z-index: 999999;
+}
+
+.theme-toggle-spin {
+  animation: themeToggleSpin 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes themeToggleSpin {
+  0% {
+    transform: rotate(0deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.18);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+html.theme-transitioning,
+html.theme-transitioning body,
+html.theme-transitioning nav,
+html.theme-transitioning header,
+html.theme-transitioning footer,
+html.theme-transitioning main,
+html.theme-transitioning section,
+html.theme-transitioning .card,
+html.theme-transitioning .chip,
+html.theme-transitioning .btn,
+html.theme-transitioning svg,
+html.theme-transitioning p,
+html.theme-transitioning h1,
+html.theme-transitioning h2,
+html.theme-transitioning h3,
+html.theme-transitioning a {
+  transition:
+    background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    fill 0.5s ease !important;
+  transition-delay: 0s !important;
+}
+
+
+

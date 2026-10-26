@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import globalCss from '../styles/global.css?url';
 import { site } from '../data/site';
 import Navbar from '../components/Navbar.astro';
+import LogoMark from '../components/LogoMark.astro';
 import Footer from '../components/Footer.astro';
 import WhatsappFloat from '../components/WhatsappFloat.astro';
 
@@ -126,7 +127,7 @@ const ogImage = new URL('/og.png', site.url).href;
       <div class="page-veil__panel page-veil__panel--bottom"></div>
       <div class="page-veil__mark">
         <span class="logo-chip logo-chip--always">
-          <img src="/logo-mark.png" alt="" width="384" height="376" />
+          <LogoMark class="logo-mark--on-dark" />
         </span>
         <span></span>
       </div>

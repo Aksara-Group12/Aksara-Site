@@ -4,13 +4,11 @@ import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { projects } from '../../data/projects';
-
-const project = projects[0];
 ---
 
 <Base
   title="Portfolio"
-  description="Portfolio Aksara Developer: website Bandara Abdurachman Saleh Malang. Jadwal penerbangan, peta rute, dan informasi bandara dalam dua bahasa."
+  description="Portfolio Aksara Developer: website Bandara Abdurachman Saleh Malang dan website portfolio Faraysz. Website yang benar-benar berjalan, bukan mockup."
 >
   <PageHero
     eyebrow="Portfolio"
@@ -19,8 +17,12 @@ const project = projects[0];
     breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Portfolio' }]}
   />
 
-  <section class="shell pb-16">
-    {project && <ProjectCard project={project} />}
+  <section class="shell border-t border-line pb-16">
+    <div class="grid gap-5 sm:grid-cols-2">
+      {projects.map((project) => (
+        <ProjectCard project={project} compact={true} />
+      ))}
+    </div>
 
     <p class="mt-8 text-center text-sm text-navy-600">
       Project berikutnya sedang dikerjakan. Mau jadi yang berikutnya?

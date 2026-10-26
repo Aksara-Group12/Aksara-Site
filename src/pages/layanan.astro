@@ -9,13 +9,14 @@ const icons: Record<string, string> = {
   layout: 'M4 5h16v14H4zM4 10h16',
   app: 'M4 5h7v7H4zM13 5h7v4h-7zM13 12h7v7h-7zM4 15h7v4H4z',
   phone: 'M8 3h8v18H8zM11 18h2',
+  cpu: 'M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2M5 5h14v14H5zM9 9h6v6H9z',
   shield: 'M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z',
 };
 ---
 
 <Base
   title="Layanan"
-  description="Website bisnis, aplikasi web, aplikasi mobile, dan perawatan bulanan. Scope jelas, harga tetap, source code milik Anda."
+  description="Website bisnis, aplikasi web, aplikasi mobile, sistem tertanam / IoT, dan perawatan bulanan. Scope jelas, harga tetap, source code milik Anda."
 >
   <PageHero
     eyebrow="Layanan"
@@ -34,7 +35,7 @@ const icons: Record<string, string> = {
     </nav>
   </PageHero>
 
-  <div class="shell pb-8">
+  <div class="shell border-t border-line pb-8">
     <div class="space-y-5">
       {
         services.map((service) => (

@@ -17,8 +17,8 @@ import { techLayers } from '../data/stack';
     breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Tentang' }]}
   />
 
-  <section class="shell pb-16">
-    <div class="max-w-3xl">
+  <section class="shell border-t border-line pb-16">
+    <div class="max-w-3xl reveal">
       <p class="eyebrow">Profil Perusahaan</p>
       <div class="mt-6 space-y-6 text-[15px] leading-relaxed text-navy-700">
         <p>
@@ -45,17 +45,17 @@ import { techLayers } from '../data/stack';
     </div>
   </section>
 
-  <section class="relative py-20">
+  <section class="relative border-t border-line py-20">
     <div class="shell">
-      <p class="eyebrow">Prinsip kerja</p>
-      <h2 class="mt-5 max-w-xl text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+      <p class="eyebrow reveal">Prinsip kerja</p>
+      <h2 class="mt-5 max-w-xl text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl reveal">
         Empat aturan yang tidak kami tawar.
       </h2>
 
       <div class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
         {
           principles.map((item, index) => (
-            <div class="flex gap-4">
+            <div class="reveal flex gap-4">
               <span class="mt-0.5 font-mono text-xs text-gold-500/70">{String(index + 1).padStart(2, '0')}</span>
               <div>
                 <h3 class="text-base font-semibold text-navy-950">{item.title}</h3>
@@ -68,10 +68,10 @@ import { techLayers } from '../data/stack';
     </div>
   </section>
 
-  <section class="relative py-20">
+  <section class="relative border-t border-line py-20">
     <div class="shell">
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
-        <div>
+        <div class="reveal">
           <p class="eyebrow">Alat kerja</p>
           <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
             Yang kami pakai sehari-hari.
@@ -96,7 +96,7 @@ import { techLayers } from '../data/stack';
   <section class="relative border-y border-line bg-parchment-200/30 py-20">
     <div class="shell">
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
-        <div>
+        <div class="reveal">
           <p class="eyebrow">Cara kerja</p>
           <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
             Enam tahap, tanpa fase gelap.

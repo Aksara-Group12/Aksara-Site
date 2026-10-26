@@ -1,0 +1,257 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="service-visual relative w-full overflow-hidden rounded-xl border border-line-strong/50 bg-parchment-100/80 dark:bg-deep-950/80 p-2.5 sm:p-3 shadow-sm select-none pointer-events-none">
+  {
+    slug === 'website-bisnis' && (
+      <div class="flex w-full min-h-[12.5rem] sm:min-h-[13.5rem] flex-col justify-between rounded-lg border border-line bg-parchment-50 dark:bg-deep-900/95 p-3 shadow-sm">
+        <!-- Browser Bar -->
+        <div class="flex items-center justify-between border-b border-line pb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="size-2.5 rounded-full bg-rose-400"></span>
+            <span class="size-2.5 rounded-full bg-amber-400"></span>
+            <span class="size-2.5 rounded-full bg-emerald-400"></span>
+          </div>
+          <div class="flex h-5 w-3/5 items-center justify-center rounded-md bg-parchment-200/70 dark:bg-deep-800/80 px-2.5 text-[10px] font-mono text-navy-700 dark:text-navy-300">
+            aksaradev.my.id/company
+          </div>
+          <div class="flex gap-1 text-navy-400 dark:text-navy-500">
+            <span class="size-2 rounded-sm border border-current"></span>
+            <span class="size-2 rounded-sm border border-current"></span>
+          </div>
+        </div>
+
+        <!-- Mockup Content Area -->
+        <div class="flex flex-1 flex-col justify-between gap-2.5 py-2">
+          <!-- Mini Nav -->
+          <div class="flex items-center justify-between">
+            <div class="h-2.5 w-20 rounded bg-gold-600/80"></div>
+            <div class="flex items-center gap-2">
+              <div class="h-2 w-8 rounded bg-navy-400/30"></div>
+              <div class="h-2 w-8 rounded bg-navy-400/30"></div>
+              <div class="h-4 w-12 rounded bg-gold-500 text-[8px] font-bold text-navy-950 flex items-center justify-center">Kontak</div>
+            </div>
+          </div>
+
+          <!-- Hero Section -->
+          <div class="flex items-center justify-between gap-3 rounded-lg border border-line/60 bg-gradient-to-r from-parchment-200/40 via-parchment-100/40 to-transparent dark:from-deep-800/40 dark:via-deep-850/40 p-2.5">
+            <div class="flex-1 space-y-1.5">
+              <div class="h-3.5 w-4/5 rounded bg-navy-950 dark:bg-on-deep"></div>
+              <div class="h-2 w-full rounded bg-navy-500/40"></div>
+              <div class="h-2 w-3/4 rounded bg-navy-500/25"></div>
+              <div class="pt-1 flex gap-2">
+                <div class="h-4 w-16 rounded bg-navy-900 dark:bg-gold-500"></div>
+                <div class="h-4 w-14 rounded border border-line"></div>
+              </div>
+            </div>
+            <div class="flex size-16 shrink-0 items-center justify-center rounded-lg border border-gold-500/30 bg-gradient-to-br from-gold-500/15 via-steel-500/10 to-transparent p-2">
+              <svg class="size-8 text-gold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 3 Feature Chips -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="h-3 rounded bg-parchment-200/60 dark:bg-deep-800/60"></div>
+            <div class="h-3 rounded bg-parchment-200/60 dark:bg-deep-800/60"></div>
+            <div class="h-3 rounded bg-parchment-200/60 dark:bg-deep-800/60"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    slug === 'aplikasi-web' && (
+      <div class="flex w-full min-h-[12.5rem] sm:min-h-[13.5rem] flex-col justify-between rounded-lg border border-line bg-parchment-50 dark:bg-deep-900/95 p-3 shadow-sm">
+        <!-- Top SaaS Status -->
+        <div class="flex items-center justify-between border-b border-line pb-2">
+          <div class="flex items-center gap-2">
+            <span class="size-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-[10px] font-bold text-navy-950 dark:text-navy-100">Portal Operasional & POS</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="rounded bg-emerald-500/15 px-2 py-0.5 text-[9px] font-mono font-bold text-emerald-600 dark:text-emerald-400">+34.8% Real-time</span>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-3 gap-2 pt-2">
+          <div class="rounded-lg border border-line/70 bg-parchment-200/50 dark:bg-deep-800/50 p-2">
+            <span class="text-[9px] text-navy-600/80">Omset Hari Ini</span>
+            <div class="mt-0.5 text-xs font-bold text-navy-950 dark:text-on-deep">Rp 18,4 Jt</div>
+          </div>
+          <div class="rounded-lg border border-line/70 bg-parchment-200/50 dark:bg-deep-800/50 p-2">
+            <span class="text-[9px] text-navy-600/80">Pesanan</span>
+            <div class="mt-0.5 text-xs font-bold text-navy-950 dark:text-on-deep">1.840 Trx</div>
+          </div>
+          <div class="rounded-lg border border-line/70 bg-parchment-200/50 dark:bg-deep-800/50 p-2">
+            <span class="text-[9px] text-navy-600/80">SLA Server</span>
+            <div class="mt-0.5 text-xs font-bold text-emerald-600">99.98%</div>
+          </div>
+        </div>
+
+        <!-- Full-Width Bar Chart -->
+        <div class="mt-2 flex h-14 items-end justify-between gap-1.5 rounded-lg border border-line/60 bg-parchment-200/40 dark:bg-deep-800/40 px-3 py-2">
+          <div class="flex-1 h-5 rounded-t bg-steel-500/40"></div>
+          <div class="flex-1 h-8 rounded-t bg-steel-500/60"></div>
+          <div class="flex-1 h-6 rounded-t bg-steel-500/40"></div>
+          <div class="flex-1 h-10 rounded-t bg-gold-500/70"></div>
+          <div class="flex-1 h-7 rounded-t bg-gold-500/50"></div>
+          <div class="flex-1 h-11 rounded-t bg-gold-500"></div>
+          <div class="flex-1 h-9 rounded-t bg-gold-600"></div>
+          <div class="flex-1 h-12 rounded-t bg-emerald-500"></div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    slug === 'aplikasi-mobile' && (
+      <div class="flex w-full min-h-[12.5rem] sm:min-h-[13.5rem] flex-col justify-between rounded-lg border border-line bg-parchment-50 dark:bg-deep-900/95 p-3 shadow-sm">
+        <!-- Mobile Top App Bar -->
+        <div class="flex items-center justify-between border-b border-line pb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="size-2 rounded-full bg-emerald-500"></span>
+            <span class="text-[10px] font-bold text-navy-950 dark:text-navy-100">Aplikasi Android & iOS (Flutter)</span>
+          </div>
+          <span class="rounded bg-gold-500/15 px-2 py-0.5 text-[9px] font-mono font-semibold text-gold-700 dark:text-gold-300">Offline-First</span>
+        </div>
+
+        <!-- App Screen Card -->
+        <div class="my-auto space-y-2">
+          <div class="rounded-xl border border-gold-500/30 bg-gradient-to-r from-navy-950 via-deep-900 to-navy-900 p-3 text-on-deep shadow-md">
+            <div class="flex items-center justify-between text-[9px] text-gold-300/80">
+              <span>Sinkronisasi Data Lapangan</span>
+              <span class="flex items-center gap-1 text-emerald-400">
+                <span class="size-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Sync
+              </span>
+            </div>
+            <div class="mt-1.5 flex items-baseline justify-between">
+              <span class="text-sm font-bold text-gold-200">Rp 24.500.000</span>
+              <span class="text-[9px] font-mono text-on-deep-muted">148 Transaksi</span>
+            </div>
+          </div>
+
+          <!-- Feature Badges -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 rounded-lg border border-line/60 bg-parchment-200/50 dark:bg-deep-800/50 p-2 text-[9px] font-semibold text-navy-900 dark:text-navy-200">
+              <div class="size-2 rounded-full bg-emerald-500"></div>
+              <span>Penyimpanan Lokal SQLite</span>
+            </div>
+            <div class="flex items-center gap-2 rounded-lg border border-line/60 bg-parchment-200/50 dark:bg-deep-800/50 p-2 text-[9px] font-semibold text-navy-900 dark:text-navy-200">
+              <div class="size-2 rounded-full bg-gold-500"></div>
+              <span>Push Notification Firebase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Bottom Bar Mockup -->
+        <div class="flex items-center justify-around border-t border-line pt-2 text-[9px] text-navy-600/70">
+          <span class="font-bold text-gold-600">Beranda</span>
+          <span>Transaksi</span>
+          <span>Laporan</span>
+          <span>Akun</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    slug === 'sistem-tertanam-iot' && (
+      <div class="flex w-full min-h-[12.5rem] sm:min-h-[13.5rem] flex-col justify-between rounded-lg border border-line bg-parchment-50 dark:bg-deep-900/95 p-3 shadow-sm">
+        <!-- Header IoT -->
+        <div class="flex items-center justify-between border-b border-line pb-2">
+          <div class="flex items-center gap-2">
+            <span class="size-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="text-[10px] font-bold text-navy-950 dark:text-navy-100">Telemetry Node ESP32 / STM32</span>
+          </div>
+          <span class="rounded bg-emerald-500/15 px-2 py-0.5 text-[9px] font-mono font-semibold text-emerald-600 dark:text-emerald-400">MQTT 2.4GHz Online</span>
+        </div>
+
+        <!-- Sensors Grid -->
+        <div class="grid grid-cols-2 gap-2 pt-2">
+          <div class="flex items-center gap-2.5 rounded-lg border border-line/70 bg-parchment-200/50 dark:bg-deep-800/50 p-2.5">
+            <div class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-600">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-[9px] text-navy-600/80">Sensor Suhu</div>
+              <div class="text-xs font-mono font-bold text-navy-950 dark:text-on-deep">28.4 °C · Stabil</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2.5 rounded-lg border border-line/70 bg-parchment-200/50 dark:bg-deep-800/50 p-2.5">
+            <div class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-steel-500/15 text-steel-500">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-[9px] text-navy-600/80">Tekanan Flow</div>
+              <div class="text-xs font-mono font-bold text-navy-950 dark:text-on-deep">84.2 PSI · Aman</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full-Width Pulse Waveform -->
+        <div class="mt-2 flex items-center justify-between rounded-lg border border-line/60 bg-parchment-200/40 dark:bg-deep-800/40 px-3 py-2">
+          <span class="text-[9px] font-mono text-navy-700 dark:text-navy-300 font-semibold">Pulse Monitor</span>
+          <svg class="h-5 w-44 text-emerald-500" viewBox="0 0 160 20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M0 10 h30 l6 -9 l6 18 l6 -14 l6 9 h30 l6 -10 l6 16 l6 -9 h40" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="text-[9px] font-mono font-bold text-emerald-600 dark:text-emerald-400">99.4% Link</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    slug === 'perawatan-website' && (
+      <div class="flex w-full min-h-[12.5rem] sm:min-h-[13.5rem] flex-col justify-between rounded-lg border border-line bg-parchment-50 dark:bg-deep-900/95 p-3 shadow-sm">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-line pb-2">
+          <div class="flex items-center gap-2">
+            <svg class="size-4 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span class="text-[10px] font-bold text-navy-950 dark:text-navy-100">Security & Server Hub</span>
+          </div>
+          <span class="rounded bg-emerald-500/15 px-2 py-0.5 text-[9px] font-mono font-bold text-emerald-600 dark:text-emerald-400">99.98% SLA Uptime</span>
+        </div>
+
+        <!-- Checklist -->
+        <div class="space-y-2 pt-2">
+          <div class="flex items-center justify-between rounded-lg border border-line/60 bg-parchment-200/50 dark:bg-deep-800/50 px-3 py-1.5 text-[9.5px]">
+            <span class="flex items-center gap-2 font-medium text-navy-950 dark:text-on-deep">
+              <span class="size-2 rounded-full bg-emerald-500"></span> Backup Otomatis Harian (30 Hari)
+            </span>
+            <span class="font-mono text-navy-600 dark:text-navy-400 font-semibold">Tersimpan 02:00 WIB</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-lg border border-line/60 bg-parchment-200/50 dark:bg-deep-800/50 px-3 py-1.5 text-[9.5px]">
+            <span class="flex items-center gap-2 font-medium text-navy-950 dark:text-on-deep">
+              <span class="size-2 rounded-full bg-emerald-500"></span> SSL Certificate & Security Patch
+            </span>
+            <span class="font-mono text-emerald-600 font-bold">Valid & Terproteksi</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-lg border border-line/60 bg-parchment-200/50 dark:bg-deep-800/50 px-3 py-1.5 text-[9.5px]">
+            <span class="flex items-center gap-2 font-medium text-navy-950 dark:text-on-deep">
+              <span class="size-2 rounded-full bg-emerald-500"></span> Mitigasi Serangan Anti-DDoS
+            </span>
+            <span class="font-mono text-navy-600 dark:text-navy-400 font-semibold">0 Anomali / Aman</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</div>
