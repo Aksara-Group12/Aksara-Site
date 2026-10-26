@@ -1,0 +1,73 @@
+---
+import type { Project } from '../data/projects';
+import SitePreview from './SitePreview.astro';
+
+interface Props {
+  project: Project;
+  class?: string;
+}
+
+const { project, class: className = '' } = Astro.props;
+---
+
+<a
+  href={project.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={['card reveal group grid overflow-hidden p-0 lg:grid-cols-[1.08fr_0.92fr]', className]}
+>
+  <div class="border-b border-line bg-parchment-50/50 p-4 md:p-6 lg:border-r lg:border-b-0">
+    <SitePreview
+      src={project.preview}
+      alt={project.previewAlt}
+      domain={project.domain}
+      class="shadow-[0_24px_50px_-36px_rgba(10,28,51,0.6)]"
+    />
+  </div>
+
+  <div class="flex flex-col justify-center p-6 md:p-8">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="chip">{project.industry}</span>
+      <span class="chip">{project.year}</span>
+      <span class="ml-auto flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-gold-600 uppercase">
+        <span class="size-1.5 rounded-full bg-gold-500" />
+        live
+      </span>
+    </div>
+
+    <h3 class="mt-5 text-2xl leading-snug font-semibold tracking-[-0.01em] text-navy-950 transition-colors group-hover:text-gold-600">
+      {project.title}
+    </h3>
+    <p class="mt-1.5 text-sm text-navy-600">{project.client}</p>
+    <p class="mt-4 text-sm leading-relaxed text-navy-700">{project.summary}</p>
+
+    <ul class="mt-6 space-y-2.5">
+      {
+        project.highlights.map((item) => (
+          <li class="flex gap-2.5 text-sm leading-relaxed text-navy-700">
+            <span class="mt-2 size-1.5 shrink-0 rounded-full bg-gold-500" />
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-6 flex flex-wrap gap-1.5">
+      {project.stack.map((tech) => <span class="chip">{tech}</span>)}
+    </div>
+
+    <div class="mt-7 flex items-center justify-between gap-4 border-t border-line pt-5">
+      <span class="min-w-0">
+        <span class="block truncate font-mono text-xs text-navy-700">{project.domain}</span>
+        <span class="mt-1 block text-[11px] text-navy-600">Buka di tab baru</span>
+      </span>
+      <span
+        class="flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-navy-700 transition-colors group-hover:border-gold-500 group-hover:text-gold-600"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </div>
+  </div>
+</a>

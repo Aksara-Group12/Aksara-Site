@@ -1,0 +1,53 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  title = 'Ceritakan project Anda. Kami dengarkan dulu sebelum menawarkan.',
+  description = 'Sesi 45 menit tanpa biaya. Kami petakan kebutuhan, kendala, dan estimasi realistis. Kalau ternyata kami bukan pilihan yang tepat, kami akan bilang.',
+  primaryLabel = 'Mulai diskusi via WhatsApp',
+  secondaryLabel = 'Lihat cara kerja kami',
+  secondaryHref = '/layanan',
+} = Astro.props;
+
+import { waLink } from '../data/site';
+---
+
+<section class="relative overflow-hidden py-20 md:py-28">
+  <div class="shell relative">
+    <div
+      class="surface-navy relative overflow-hidden rounded-3xl border border-gold-500/30 px-6 py-16 text-center shadow-[0_40px_80px_-50px_rgba(10,28,51,0.9)] md:px-16 md:py-20"
+    >
+      <div class="grid-lines opacity-25"></div>
+      <div class="glow -top-40 left-1/2 size-[34rem] -translate-x-1/2 text-gold-400/15"></div>
+
+      <div class="relative mx-auto max-w-2xl">
+        <div class="rule-ornament mx-auto max-w-[12rem]">
+          <span class="diamond"></span>
+        </div>
+
+        <p class="eyebrow eyebrow-light mt-8 justify-center before:hidden">Langkah berikutnya</p>
+        <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] text-on-deep sm:text-4xl">
+          {title}
+        </h2>
+        <p class="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-on-deep-muted/80">{description}</p>
+
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a href={waLink()} target="_blank" rel="noopener" class="btn btn-gold">
+            {primaryLabel}
+          </a>
+          <a href={secondaryHref} class="btn btn-outline-light">{secondaryLabel}</a>
+        </div>
+
+        <p class="mt-7 text-[11px] tracking-[0.14em] text-on-deep-muted/50 uppercase">
+          Balasan rata-rata di bawah 2 jam pada hari kerja
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

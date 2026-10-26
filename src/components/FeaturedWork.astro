@@ -1,0 +1,29 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+
+const project = projects[0];
+---
+
+<section class="relative border-y border-line bg-parchment-200/30 pb-20 md:pb-28">
+  <div class="shell">
+    <SectionHeader
+      title="Hasil kerja, bukan janji di halaman depan."
+      description="Kami tidak memajang mockup. Kartu di bawah membawa Anda langsung ke website yang benar-benar berjalan."
+    >
+      <span slot="eyebrow">Portfolio</span>
+    </SectionHeader>
+
+    {project && <ProjectCard project={project} class="mt-12" />}
+
+    <div class="mt-10 flex justify-center">
+      <a href="/portfolio" class="btn btn-ghost">
+        Semua project
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { principles, processSteps } from '../data/content';
+import { techLayers } from '../data/stack';
+---
+
+<Base
+  title="Tentang"
+  description="Aksara Developer adalah mitra rekayasa perangkat lunak di Jember sejak 2026. Website, aplikasi web, dan aplikasi mobile dengan proses transparan dan source code milik klien."
+>
+  <PageHero
+    eyebrow="Tentang"
+    title="Mengenal Aksara Developer Lebih Dekat"
+    description="Mitra rekayasa perangkat lunak yang menggabungkan estetika visual modern dengan keandalan arsitektur kode yang bersih, untuk website bisnis, aplikasi web, dan aplikasi mobile segala skala."
+    breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Tentang' }]}
+  />
+
+  <section class="shell pb-16">
+    <div class="max-w-3xl">
+      <p class="eyebrow">Profil Perusahaan</p>
+      <div class="mt-6 space-y-6 text-[15px] leading-relaxed text-navy-700">
+        <p>
+          Aksara Developer adalah software house yang berbasis di Jember dan berdiri pada 2026. Dua
+          orang, satu laptop, dan satu keyakinan: bisnis kecil berhak mendapat pekerjaan teknis yang
+          rapi tanpa harga agency besar.
+        </p>
+        <p>
+          Mulai dari website profil bisnis, landing page kampanye, sistem internal, hingga aplikasi
+          mobile, kami berkomitmen memberikan hasil terbaik lewat proses pengerjaan yang transparan
+          dan bebas khawatir.
+        </p>
+        <p>
+          Project pertama kami adalah website Bandara Abdurachman Saleh Malang. Kami sengaja tidak
+          melebar ke digital marketing atau branding, karena lebih baik menguasai sedikit hal dengan
+          benar.
+        </p>
+        <p>
+          Kalau Anda membaca ini dan merasa project Anda terlalu kecil untuk agency, justru di situ
+          kami paling berguna. Yang kami tidak lakukan adalah menjanjikan hasil mustahil atau
+          memasang harga yang tidak bisa kami pertanggungjawabkan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative py-20">
+    <div class="shell">
+      <p class="eyebrow">Prinsip kerja</p>
+      <h2 class="mt-5 max-w-xl text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+        Empat aturan yang tidak kami tawar.
+      </h2>
+
+      <div class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {
+          principles.map((item, index) => (
+            <div class="flex gap-4">
+              <span class="mt-0.5 font-mono text-xs text-gold-500/70">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="text-base font-semibold text-navy-950">{item.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-navy-700">{item.description}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="relative py-20">
+    <div class="shell">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div>
+          <p class="eyebrow">Alat kerja</p>
+          <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+            Yang kami pakai sehari-hari.
+          </h2>
+        </div>
+        <div class="divide-y divide-line border-t border-line">
+          {
+            techLayers.map((layer) => (
+              <div class="grid gap-3 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                <h3 class="text-sm font-semibold text-navy-950">{layer.group}</h3>
+                <div class="flex flex-wrap gap-1.5">
+                  {layer.items.map((item) => <span class="chip">{item}</span>)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative border-y border-line bg-parchment-200/30 py-20">
+    <div class="shell">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div>
+          <p class="eyebrow">Cara kerja</p>
+          <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+            Enam tahap, tanpa fase gelap.
+          </h2>
+        </div>
+        <ol class="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+          {
+            processSteps.map((step) => (
+              <li>
+                <p class="font-mono text-[11px] text-gold-500/70">{step.number}</p>
+                <h3 class="mt-1.5 text-sm font-semibold text-navy-950">{step.title}</h3>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-navy-700">{step.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Mau ngobrol langsung dengan founder?"
+    description="Tidak perlu presentasi formal. Cukup ceritakan apa yang sedang macet di bisnis Anda sekarang."
+    secondaryLabel="Lihat portfolio"
+    secondaryHref="/portfolio"
+  />
+</Base>

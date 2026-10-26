@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+
+const project = projects[0];
+---
+
+<Base
+  title="Portfolio"
+  description="Portfolio Aksara Developer: website Bandara Abdurachman Saleh Malang. Jadwal penerbangan, peta rute, dan informasi bandara dalam dua bahasa."
+>
+  <PageHero
+    eyebrow="Portfolio"
+    title="Buka sendiri, cek di ponsel Anda."
+    description="Kami tidak memajang mockup. Kartu di bawah membawa Anda langsung ke website aslinya, jadi Anda bisa menilai kecepatan dan tampilannya sendiri."
+    breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Portfolio' }]}
+  />
+
+  <section class="shell pb-16">
+    {project && <ProjectCard project={project} />}
+
+    <p class="mt-8 text-center text-sm text-navy-600">
+      Project berikutnya sedang dikerjakan. Mau jadi yang berikutnya?
+      <a href="/kontak" class="text-gold-600 underline decoration-gold-500/40 underline-offset-4 transition-colors hover:text-gold-700">
+        Mulai percakapan
+      </a>
+    </p>
+  </section>
+
+  <CtaBand
+    title="Project Anda bisa jadi studi kasus berikutnya."
+    description="Kami senang mengerjakan hal yang belum pernah kami kerjakan, selama masalahnya jelas. Mulai dari percakapan singkat."
+    secondaryLabel="Lihat layanan"
+    secondaryHref="/layanan"
+  />
+</Base>

@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  breadcrumb: { label: string; href?: string }[];
+  eyebrow?: string;
+}
+const { title, description, breadcrumb, eyebrow } = Astro.props;
+---
+
+<section class="relative overflow-hidden pt-32 pb-14 md:pt-40 md:pb-16">
+  <div class="grid-lines"></div>
+  <div class="glow -top-24 left-1/4 size-[34rem] text-gold-400/14"></div>
+
+  <div class="shell relative">
+    <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-[11px] tracking-[0.12em] text-navy-600 uppercase">
+      {
+        breadcrumb.map((crumb, index) => (
+          <>
+            {index > 0 && <span class="text-gold-500/50">·</span>}
+            {crumb.href ? (
+              <a href={crumb.href} class="transition-colors hover:text-gold-700">{crumb.label}</a>
+            ) : (
+              <span class="text-navy-800">{crumb.label}</span>
+            )}
+          </>
+        ))
+      }
+    </nav>
+
+    {eyebrow && <p class="eyebrow mt-7">{eyebrow}</p>}
+
+    <h1
+      class="mt-5 max-w-3xl text-[2.3rem] leading-[1.06] font-extrabold tracking-[-0.035em] text-navy-950 sm:text-[3.2rem]"
+    >
+      {title}
+    </h1>
+    <div class="mt-6 flex items-center gap-2">
+      <span class="h-px w-16 bg-gold-500"></span>
+      <span class="diamond"></span>
+    </div>
+    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-navy-700">{description}</p>
+
+    <slot />
+  </div>
+</section>

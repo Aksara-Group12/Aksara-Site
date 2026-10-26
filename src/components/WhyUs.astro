@@ -1,0 +1,32 @@
+---
+import { principles } from '../data/content';
+---
+
+<section class="relative border-y border-line bg-parchment-200/30 py-20 md:py-28">
+  <div class="shell">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Kenapa Aksara</p>
+      <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+        Hal-hal kecil yang sering bikin project gagal.
+      </h2>
+      <p class="mt-4 text-[15px] leading-relaxed text-navy-700">
+        Bukan soal teknologi. Kebanyakan masalah muncul dari ekspektasi yang tidak pernah
+        ditulis dan komunikasi yang tersendat.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+      {
+        principles.map((item, index) => (
+          <div class="reveal flex gap-4">
+            <span class="mt-0.5 font-mono text-xs text-gold-500/70">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="text-base font-semibold text-navy-950">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-navy-700">{item.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

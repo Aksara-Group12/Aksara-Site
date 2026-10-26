@@ -1,0 +1,105 @@
+---
+import { site, waLink } from '../data/site';
+import { services } from '../data/services';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="surface-navy relative overflow-hidden border-t border-gold-500/30">
+    <div class="glow -top-44 left-1/2 size-[38rem] -translate-x-1/2 text-gold-500/12"></div>
+
+  <div class="shell relative py-16 md:py-20">
+    <div class="rule-ornament mb-14 opacity-70">
+      <span class="diamond"></span>
+    </div>
+
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
+      <div>
+        <a href="/" class="flex items-center gap-3">
+          <span class="flex size-11 items-center justify-center rounded-full border border-gold-500/60 bg-paper-cream shadow-[0_0_0_4px_rgba(184,134,60,0.12)]">
+            <img src="/logo-mark.png" alt="" width="384" height="376" class="h-7 w-auto" />
+          </span>
+          <span class="text-serif text-[15px] leading-none font-semibold text-on-deep">
+            Aksara<span class="ml-1.5 text-on-deep-muted/70">Developer</span>
+          </span>
+        </a>
+        <p class="mt-6 max-w-sm text-sm leading-relaxed text-on-deep-muted/80">
+          Software house kecil yang membangun website, aplikasi web, dan aplikasi mobile untuk bisnis
+          Indonesia. Tim kecil, komunikasi langsung, kode milik Anda.
+        </p>
+
+        <a href={waLink()} target="_blank" rel="noopener" class="btn btn-gold mt-7">
+          Mulai diskusi
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+      <div>
+        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Layanan</h2>
+        <ul class="mt-5 space-y-3 text-sm">
+          {
+            services.map((service) => (
+              <li>
+                <a
+                  href={`/layanan#${service.slug}`}
+                  class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
+                >
+                  {service.shortTitle}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Kontak</h2>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li>
+            <a
+              href={`mailto:${site.email}`}
+              class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
+            >
+              {site.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={waLink()}
+              target="_blank"
+              rel="noopener"
+              class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
+            >
+              {site.phone}
+            </a>
+          </li>
+          <li class="text-on-deep-muted/60">{site.address}</li>
+        </ul>
+
+        <h2 class="mt-9 text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Instagram</h2>
+        <ul class="mt-4 flex gap-2">
+          <li>
+            <a
+              href={site.socials.instagram}
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram"
+              class="flex size-9 items-center justify-center rounded-full border border-on-deep/20 text-on-deep-muted transition-colors hover:border-gold-400 hover:text-gold-200"
+            >
+              <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.2.77-.3.3-.6.7-.8 1.2-.1.4-.3 1-.4 2.1C2.7 9.6 2.7 10 2.7 12s0 2.4.1 3.6c0 1.1.2 1.7.4 2.1.2.5.4.9.8 1.2.3.3.7.6 1.2.8.4.1 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1 0 1.7-.2 2.1-.4.5-.2.9-.4 1.2-.8.3-.3.6-.7.8-1.2.1-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.6s0-2.4-.1-3.6c0-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.2-.3-.3-.7-.6-1.2-.8-.4-.1-1-.3-2.1-.4C15.5 4 15.1 4 12 4m0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8m0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2m6.2-2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-on-deep/15 pt-6 text-xs text-on-deep-muted/60 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {site.name}. Seluruh hak cipta dilindungi.</p>
+      <p class="text-serif tracking-[0.16em]">Dibangun dengan Astro &amp; Tailwind</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  compact?: boolean;
+}
+
+const { title, description, compact = false } = Astro.props;
+---
+
+<section class:list={['relative', compact ? 'py-16 md:py-20' : 'py-20 md:py-28']}>
+  <div class="shell">
+    <div class="max-w-2xl">
+      <p class="eyebrow"><slot name="eyebrow" /></p>
+      <h2 class="mt-5 text-[1.9rem] leading-tight font-bold tracking-[-0.025em] text-navy-950 sm:text-[2.4rem]">
+        {title}
+      </h2>
+      {description && <p class="mt-4 text-[15px] leading-relaxed text-navy-700">{description}</p>}
+    </div>
+    <slot />
+  </div>
+</section>

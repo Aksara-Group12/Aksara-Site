@@ -1,0 +1,45 @@
+---
+import { faqs } from '../data/content';
+
+interface Props {
+  items?: typeof faqs;
+}
+const { items = faqs } = Astro.props;
+---
+
+<section class="relative border-y border-line bg-parchment-200/30 py-20 md:py-28">
+  <div class="shell">
+    <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+          Pertanyaan yang paling sering muncul.
+        </h2>
+        <p class="mt-4 text-sm leading-relaxed text-navy-600">
+          Tidak menemukan jawabannya? Kirim pertanyaan langsung, kami jawab tanpa jargon.
+        </p>
+      </div>
+
+      <div class="divide-y divide-line border-t border-line">
+        {
+          items.map((item, index) => (
+            <details class="group py-1" open={index === 0}>
+              <summary class="flex cursor-pointer list-none items-start gap-4 py-5 [&::-webkit-details-marker]:hidden">
+                <span class="mt-0.5 font-mono text-[11px] text-navy-600/70">{String(index + 1).padStart(2, '0')}</span>
+                <span class="flex-1 text-[15px] font-medium text-navy-950 group-open:text-gold-600">
+                  {item.question}
+                </span>
+                <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border border-line text-navy-700 transition-transform group-open:rotate-45 group-open:border-gold-500 group-open:text-gold-600">
+                  <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="pr-10 pb-6 pl-9 text-sm leading-relaxed text-navy-700">{item.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

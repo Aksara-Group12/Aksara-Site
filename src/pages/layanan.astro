@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import { services } from '../data/services';
+
+const icons: Record<string, string> = {
+  layout: 'M4 5h16v14H4zM4 10h16',
+  app: 'M4 5h7v7H4zM13 5h7v4h-7zM13 12h7v7h-7zM4 15h7v4H4z',
+  phone: 'M8 3h8v18H8zM11 18h2',
+  shield: 'M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6z',
+};
+---
+
+<Base
+  title="Layanan"
+  description="Website bisnis, aplikasi web, aplikasi mobile, dan perawatan bulanan. Scope jelas, harga tetap, source code milik Anda."
+>
+  <PageHero
+    eyebrow="Layanan"
+    title="Yang kami kerjakan, dan seberapa jelas batasannya."
+    description="Setiap layanan punya cakupan, durasi, dan harga awal yang bisa Anda lihat sebelum menghubungi kami. Tidak ada paket abu-abu yang bikin bingung."
+    breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Layanan' }]}
+  >
+    <nav class="mt-9 flex flex-wrap gap-2" aria-label="Daftar layanan">
+      {
+        services.map((service) => (
+          <a href={`#${service.slug}`} class="chip transition-colors hover:border-gold-500 hover:text-gold-600">
+            {service.shortTitle}
+          </a>
+        ))
+      }
+    </nav>
+  </PageHero>
+
+  <div class="shell pb-8">
+    <div class="space-y-5">
+      {
+        services.map((service) => (
+          <article id={service.slug} class="card reveal scroll-mt-28 overflow-hidden p-0">
+            <div class="grid gap-0 lg:grid-cols-[1.25fr_0.75fr]">
+              <div class="border-line p-6 md:p-9 lg:border-r">
+                <div class="flex items-start gap-4">
+                  <span class="flex size-11 shrink-0 items-center justify-center rounded-xl border border-line bg-parchment-50 text-gold-500">
+                    <svg
+                      class="size-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d={icons[service.icon]} />
+                    </svg>
+                  </span>
+                  <div>
+                    <span class="font-mono text-[11px] text-navy-600/70">{service.number}</span>
+                    <h2 class="mt-1 text-2xl leading-snug font-bold tracking-[-0.02em]">{service.title}</h2>
+                    <p class="mt-2 text-sm text-gold-600/90">{service.tagline}</p>
+                  </div>
+                </div>
+
+                <p class="mt-6 text-[15px] leading-relaxed text-navy-700">{service.description}</p>
+
+                <div class="mt-8 grid gap-5 sm:grid-cols-2">
+                  {service.features.map((feature) => (
+                    <div>
+                      <h3 class="flex items-start gap-2 text-sm font-semibold text-navy-950">
+                        <span class="mt-1.5 size-1 shrink-0 rounded-full bg-gold-500" />
+                        {feature.title}
+                      </h3>
+                      <p class="mt-1.5 pl-3 text-[13px] leading-relaxed text-navy-700">{feature.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <aside class="flex flex-col gap-6 bg-parchment-50/40 p-6 md:p-9">
+                <div>
+                  <p class="font-mono text-[10px] tracking-[0.16em] text-navy-600 uppercase">Mulai dari</p>
+                  <p class="mt-1.5 font-mono text-xl text-navy-950">{service.startingPrice}</p>
+                  <p class="mt-1 text-xs text-navy-600">Durasi {service.timeline}</p>
+                </div>
+
+                <div>
+                  <p class="font-mono text-[10px] tracking-[0.16em] text-navy-600 uppercase">Yang Anda terima</p>
+                  <ul class="mt-3 space-y-2">
+                    {service.deliverables.map((item) => (
+                      <li class="flex items-start gap-2 text-[13px] leading-relaxed text-navy-700">
+                        <svg class="mt-0.5 size-3.5 shrink-0 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                          <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-auto">
+                  <p class="font-mono text-[10px] tracking-[0.16em] text-navy-600 uppercase">Stack umum</p>
+                  <div class="mt-2.5 flex flex-wrap gap-1.5">
+                    {service.stack.map((tech) => <span class="chip">{tech}</span>)}
+                  </div>
+
+                  <a href="/kontak" class="btn btn-ghost mt-6 w-full">Tanya soal layanan ini</a>
+                </div>
+              </aside>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <Faq />
+  <CtaBand
+    title="Belum yakin butuh yang mana?"
+    description="Ceritakan kondisi bisnis Anda sekarang. Kami bantu tentukan apakah cukup website, butuh sistem internal, atau justru belum perlu keduanya."
+    secondaryLabel="Lihat portfolio"
+    secondaryHref="/portfolio"
+  />
+</Base>

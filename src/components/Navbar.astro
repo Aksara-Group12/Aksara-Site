@@ -1,0 +1,239 @@
+---
+import { nav, site, waLink } from '../data/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header
+  data-header
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-300 [&.is-scrolled]:border-line [&.is-scrolled]:bg-parchment-100/95"
+>
+  <div class="shell flex h-17 items-center justify-between gap-6 md:h-19">
+    <a href="/" class="group flex items-center gap-3" aria-label={`${site.name} — beranda`}>
+      <span class="logo-chip size-10 transition-transform duration-300 group-hover:-translate-y-0.5">
+        <img src="/logo-mark.png" alt="" width="384" height="376" />
+      </span>
+      <span class="text-serif text-[15px] leading-none font-semibold text-navy-950">
+        Aksara<span class="ml-1.5 text-navy-600">Developer</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors',
+              isActive(item.href)
+                ? 'text-gold-700'
+                : 'text-navy-700 hover:text-navy-950',
+            ]}
+          >
+            {item.label}
+            {isActive(item.href) && (
+              <span class="absolute inset-x-3.5 -bottom-0.5 h-px bg-gold-500" />
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-1.5 sm:gap-2">
+      <div class="relative hidden sm:block" data-lang>
+        <button
+          type="button"
+          data-lang-toggle
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="lang-menu"
+          class="flex h-10 items-center gap-1.5 rounded-full border border-line-strong px-3 text-xs font-semibold text-navy-900 transition-colors hover:border-gold-500 hover:text-gold-700"
+        >
+          <svg class="size-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12h20" />
+          </svg>
+          <span>ID</span>
+          <svg
+            class="lang-caret size-3 text-navy-600 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <div
+          id="lang-menu"
+          data-lang-menu
+          hidden
+          role="menu"
+          aria-label="Pilih bahasa"
+          class="absolute top-full right-0 z-50 mt-2 w-48 rounded-2xl border border-line bg-parchment-50 p-1.5 shadow-[0_24px_48px_-24px_rgba(10,28,51,0.45)]"
+        >
+          <button
+            type="button"
+            role="menuitemradio"
+            aria-checked="true"
+            class="flex w-full items-center justify-between gap-3 rounded-xl bg-parchment-200 px-3 py-2 text-left text-sm font-medium text-navy-950"
+          >
+            Indonesia
+            <svg class="size-4 text-gold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            role="menuitemradio"
+            aria-checked="false"
+            disabled
+            class="flex w-full cursor-not-allowed items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm text-navy-600/70"
+          >
+            English
+            <span class="rounded-full border border-line px-1.5 py-0.5 text-[9px] tracking-[0.12em] uppercase">
+              Segera
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Aktifkan mode gelap"
+        aria-pressed="false"
+        title="Mode Gelap"
+        class="flex size-10 items-center justify-center rounded-full border border-line-strong text-navy-900 transition-colors hover:border-gold-500 hover:text-gold-700"
+      >
+        <svg class="theme-icon--moon size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg class="theme-icon--sun size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Buka menu"
+        class="flex size-10 items-center justify-center rounded-full border border-line-strong text-navy-900 md:hidden"
+      >
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" data-menu hidden class="border-t border-line bg-parchment-100/97 backdrop-blur-xl md:hidden">
+    <nav class="shell flex flex-col gap-1 py-4" aria-label="Navigasi seluler">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-xl px-3 py-3 text-[15px] font-medium transition-colors',
+              isActive(item.href) ? 'bg-parchment-200 text-gold-700' : 'text-navy-900 hover:bg-parchment-200/60',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="mt-2 flex items-center justify-between gap-3 rounded-xl border border-line px-3 py-2.5">
+        <span class="text-[10px] font-semibold tracking-[0.18em] text-navy-600 uppercase">Bahasa</span>
+        <div class="flex items-center gap-1.5">
+          <span class="rounded-full bg-parchment-200 px-2.5 py-1 text-xs font-semibold text-navy-950">ID</span>
+          <span class="rounded-full border border-line px-2.5 py-1 text-xs font-medium text-navy-600/70">
+            EN<span class="ml-1 text-[9px] tracking-[0.1em] uppercase">segera</span>
+          </span>
+        </div>
+      </div>
+      <a href={waLink()} target="_blank" rel="noopener" class="btn btn-primary mt-2 w-full">Diskusi gratis</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const initChrome = () => {
+    const root = document.documentElement;
+
+    const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const menu = document.querySelector<HTMLElement>('[data-menu]');
+    if (menuToggle && menu && menuToggle.dataset.bound !== 'true') {
+      menuToggle.dataset.bound = 'true';
+      const setMenu = (open: boolean) => {
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+        menu.hidden = !open;
+      };
+      menuToggle.addEventListener('click', () =>
+        setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'),
+      );
+      menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    }
+
+    const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+    const syncTheme = () => {
+      const dark = root.classList.contains('dark');
+      root.style.colorScheme = dark ? 'dark' : 'light';
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', dark ? '#0b1219' : '#f9efd9');
+      if (themeToggle) {
+        themeToggle.setAttribute('aria-pressed', String(dark));
+        themeToggle.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+        themeToggle.setAttribute('title', dark ? 'Mode Terang' : 'Mode Gelap');
+      }
+    };
+    if (themeToggle && themeToggle.dataset.bound !== 'true') {
+      themeToggle.dataset.bound = 'true';
+      themeToggle.addEventListener('click', () => {
+        const dark = !root.classList.contains('dark');
+        root.classList.toggle('dark', dark);
+        try {
+          localStorage.setItem('theme', dark ? 'dark' : 'light');
+        } catch {
+          /* storage unavailable */
+        }
+        syncTheme();
+      });
+    }
+    syncTheme();
+
+    const lang = document.querySelector<HTMLElement>('[data-lang]');
+    const langToggle = document.querySelector<HTMLButtonElement>('[data-lang-toggle]');
+    const langMenu = document.querySelector<HTMLElement>('[data-lang-menu]');
+    if (lang && langToggle && langMenu && lang.dataset.bound !== 'true') {
+      lang.dataset.bound = 'true';
+      const setOpen = (open: boolean) => {
+        langToggle.setAttribute('aria-expanded', String(open));
+        langMenu.hidden = !open;
+      };
+      langToggle.addEventListener('click', () => setOpen(langMenu.hidden));
+      document.addEventListener('click', (event) => {
+        if (!lang.contains(event.target as Node)) setOpen(false);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setOpen(false);
+      });
+    }
+  };
+
+  initChrome();
+  document.addEventListener('astro:page-load', initChrome);
+</script>
