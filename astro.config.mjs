@@ -7,6 +7,13 @@ import { site } from './src/data/site.ts';
 // https://astro.build/config
 export default defineConfig({
   site: site.url,
+  i18n: {
+    defaultLocale: 'id',
+    locales: ['id', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

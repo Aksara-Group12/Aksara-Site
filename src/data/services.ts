@@ -1,3 +1,5 @@
+import type { Locale } from './i18n';
+
 export interface ServiceFeature {
   title: string;
   description: string;
@@ -19,7 +21,7 @@ export interface Service {
   stack: string[];
 }
 
-export const services: Service[] = [
+export const servicesId: Service[] = [
   {
     slug: 'website-bisnis',
     number: '01',
@@ -193,4 +195,187 @@ export const services: Service[] = [
   },
 ];
 
-export const getService = (slug: string) => services.find((s) => s.slug === slug);
+export const servicesEn: Service[] = [
+  {
+    slug: 'website-bisnis',
+    number: '01',
+    icon: 'layout',
+    title: 'Business Websites & Landing Pages',
+    shortTitle: 'Business Website',
+    tagline: 'Websites that perform as 24/7 sales engines, not static digital cards.',
+    summary: 'Fast, elegant company profiles, campaign landing pages, and product catalogs engineered to rank and convert.',
+    description:
+      'Many businesses have websites that produce zero leads. We start with a foundational question: what specific action must a visitor take upon arriving? From there, we architect the layout, copy, and friction-free conversion paths to drive inquiries.',
+    features: [
+      {
+        title: 'High-converting copy & layout',
+        description: 'We rewrite your value proposition in clear customer language, ditching obscure industry jargon.',
+      },
+      {
+        title: 'Engineered for speed',
+        description: 'Targeting 90+ Google PageSpeed scores with asset payloads under 500KB for instant mobile loading.',
+      },
+      {
+        title: 'Rigorous foundational SEO',
+        description: 'Structured metadata, dynamic sitemaps, Open Graph, and semantic hierarchies for solid indexing.',
+      },
+      {
+        title: 'Frictionless content editing',
+        description: 'Content managed via Markdown or lightweight headless CMS so non-technical staff can publish easily.',
+      },
+    ],
+    deliverables: ['Bespoke custom design', 'Mobile-first responsiveness', '1-year domain & fast cloud hosting', 'Google Analytics & Search Console', 'Admin handover guide'],
+    timeline: '2–4 weeks',
+    startingPrice: 'From Rp 200k',
+    stack: ['Astro', 'Tailwind CSS', 'TypeScript', 'Cloudflare Pages'],
+  },
+  {
+    slug: 'aplikasi-web',
+    number: '02',
+    icon: 'app',
+    title: 'Web Applications & Internal Systems',
+    shortTitle: 'Web Applications',
+    tagline: 'Replace scattered spreadsheets and chat groups with a unified, robust software system.',
+    summary: 'Operational dashboards, POS, queue management, and B2B portals custom-tailored to your exact business workflows.',
+    description:
+      'Good internal systems eliminate repetitive bottlenecks rather than adding overhead. We map your actual operational steps, locate friction points, and engineer modular tools to solve them step by step.',
+    features: [
+      {
+        title: 'Ground-up workflow mapping',
+        description: 'Hands-on discovery workshops with team members running daily operations, eliminating false assumptions.',
+      },
+      {
+        title: 'Role-based access controls',
+        description: 'Fine-grained permissions for sales, warehouse, finance, and admins with comprehensive audit logs.',
+      },
+      {
+        title: 'Actionable real-time reporting',
+        description: 'One-click Excel/PDF exports, clear telemetry charts, and automated reconciliations that save hours.',
+      },
+      {
+        title: 'Seamless API integrations',
+        description: 'WhatsApp notifications, payment gateways, thermal printers, and third-party accounting APIs.',
+      },
+    ],
+    deliverables: ['Workflow analysis & scope specification', 'UI module prototypes', 'Production-ready system', 'Legacy data migration', 'Team onboarding training'],
+    timeline: '6–12 weeks',
+    startingPrice: 'From Rp 750k',
+    stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Redis', 'Docker'],
+  },
+  {
+    slug: 'aplikasi-mobile',
+    number: '03',
+    icon: 'phone',
+    title: 'Mobile Applications (Android & iOS)',
+    shortTitle: 'Mobile Apps',
+    tagline: 'One clean codebase, dual platforms, native performance.',
+    summary: 'Customer-facing apps or field team solutions complete with offline-first synchronization.',
+    description:
+      'Field personnel often face zero signal in critical locations. We build offline-first applications that operate smoothly without connectivity and sync reliably once signal returns.',
+    features: [
+      {
+        title: 'Offline-first architecture',
+        description: 'Local caching and 2-way background synchronization with conflict-resolution algorithms.',
+      },
+      {
+        title: 'Fluid native performance',
+        description: 'Built with Flutter for high framerates, low battery draw, and smooth responsiveness across all devices.',
+      },
+      {
+        title: 'Store distribution support',
+        description: 'End-to-end guidance through Google Play Store and Apple App Store review and publishing guidelines.',
+      },
+      {
+        title: 'Modular scalability',
+        description: 'Clean layered architecture ensuring future features can be shipped without rewrites.',
+      },
+    ],
+    deliverables: ['Native-feel UX/UI design', 'Production APK & iOS builds', 'App Store submission assistance', 'API endpoints & documentation', 'Release guide'],
+    timeline: '8–14 weeks',
+    startingPrice: 'From Rp 1.5M',
+    stack: ['Flutter', 'Dart', 'REST API', 'SQLite', 'Firebase'],
+  },
+  {
+    slug: 'sistem-tertanam-iot',
+    number: '04',
+    icon: 'cpu',
+    title: 'Embedded Systems & IoT Solutions',
+    shortTitle: 'Embedded / IoT',
+    tagline: 'Smart hardware integration, precision telemetry, and cloud automation.',
+    summary: 'Microcontroller firmware development, sensor data acquisition, actuator control, and real-time dashboards.',
+    description:
+      'Connected hardware solutions for commercial, industrial, or research requirements. We engineer robust firmware, noise-resistant schematics, and low-power telemetry designed for 24/7 field operation.',
+    features: [
+      {
+        title: 'Reliable real-time firmware',
+        description: 'ESP32, STM32, and Arduino programming with battle-tested MQTT, HTTP, WebSocket, or Modbus protocols.',
+      },
+      {
+        title: 'Precision sensors & actuators',
+        description: 'High-accuracy data collection for temperature, flow, and environmental metrics, plus relay/motor automation.',
+      },
+      {
+        title: 'Live telemetry & anomaly alerts',
+        description: 'Real-time telemetry charting, historic logs, and instant alert dispatches via WhatsApp or Telegram.',
+      },
+      {
+        title: 'Rugged hardware design',
+        description: 'Schematic architecture, PCB layouts, and industrial surge protections optimized for energy efficiency.',
+      },
+    ],
+    deliverables: [
+      'Firmware source code & modular architecture',
+      'Schematic diagrams & wiring specifications',
+      'Backend telemetry API & monitoring dashboard',
+      'Functional calibration and hardware bench testing',
+      'Complete technical documentation & installation guide',
+    ],
+    timeline: '4–8 weeks',
+    startingPrice: 'From Rp 2M',
+    stack: ['ESP32', 'STM32', 'C/C++', 'MQTT', 'Node.js', 'PostgreSQL', 'WebSockets'],
+  },
+  {
+    slug: 'perawatan-website',
+    number: '05',
+    icon: 'shield',
+    title: 'Maintenance & Monthly Support',
+    shortTitle: 'Maintenance',
+    tagline: 'Neglected software becomes an accumulating business liability.',
+    summary: 'Security hardening, automated backups, 24/7 uptime monitoring, and dedicated monthly hours for updates.',
+    description:
+      'Many vendors vanish once final payment clears. Our ongoing retainer plans ensure your digital platform remains secure, lightning-fast, and adapted to evolving business requirements.',
+    features: [
+      {
+        title: 'Automated daily backups',
+        description: '30-day retention stored securely offsite, completely separate from production servers.',
+      },
+      {
+        title: '24/7 uptime monitoring',
+        description: 'Immediate alert notifications within 1 minute of downtime with priority engineering intervention.',
+      },
+      {
+        title: 'Proactive security patching',
+        description: 'Zero-downtime updates for underlying frameworks, dependencies, and SSL certificate renewals.',
+      },
+      {
+        title: 'Dedicated monthly hours',
+        description: 'Flexible hours for design adjustments, landing page additions, or performance improvements.',
+      },
+    ],
+    deliverables: ['Daily automated backups with 30-day retention', '24/7 uptime monitoring & alerting', 'Monthly security patching', 'Performance health audits', 'Dedicated engineering hours'],
+    timeline: 'Monthly',
+    startingPrice: 'From Rp 150k/mo',
+    stack: ['UptimeRobot', 'Cloudflare', 'GitHub Actions', 'Sentry'],
+  },
+];
+
+export const services = servicesId;
+
+export function getServices(locale: Locale = 'id'): Service[] {
+  return locale === 'en' ? servicesEn : servicesId;
+}
+
+export const getService = (slug: string, locale: Locale = 'id') => {
+  const list = getServices(locale);
+  return list.find((s) => s.slug === slug);
+};

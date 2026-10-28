@@ -1,23 +1,34 @@
 ---
-import { principles } from '../data/content';
+import { getPrinciples } from '../data/content';
+import { ui, type Locale } from '../data/i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const items = getPrinciples(lang);
 ---
 
 <section class="relative border-y border-line bg-parchment-200/30 py-20 md:py-28">
   <div class="shell">
     <div class="max-w-2xl">
-      <p class="eyebrow">Kenapa Aksara</p>
+      <p class="eyebrow">{t.whyUsEyebrow}</p>
       <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
-        Hal-hal kecil yang sering bikin project gagal.
+        {t.whyUsTitle}
       </h2>
       <p class="mt-4 text-[15px] leading-relaxed text-navy-700">
-        Bukan soal teknologi. Kebanyakan masalah muncul dari ekspektasi yang tidak pernah
-        ditulis dan komunikasi yang tersendat.
+        {t.whyUsDesc}
       </p>
     </div>
 
     <div class="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
       {
-        principles.map((item, index) => (
+        items.map((item, index) => (
           <div class="reveal flex gap-4">
             <span class="mt-0.5 font-mono text-xs text-gold-500/70">{String(index + 1).padStart(2, '0')}</span>
             <div>

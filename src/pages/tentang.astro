@@ -2,13 +2,18 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { principles, processSteps } from '../data/content';
-import { techLayers } from '../data/stack';
+import { principlesId, processStepsId } from '../data/content';
+import { techLayersId } from '../data/stack';
+
+const principles = principlesId;
+const processSteps = processStepsId;
+const techLayers = techLayersId;
 ---
 
 <Base
   title="Tentang"
   description="Aksara Developer adalah mitra rekayasa perangkat lunak di Jember sejak 2026. Website, aplikasi web, dan aplikasi mobile dengan proses transparan dan source code milik klien."
+  lang="id"
 >
   <PageHero
     eyebrow="Tentang"
@@ -118,6 +123,7 @@ import { techLayers } from '../data/stack';
   </section>
 
   <CtaBand
+    lang="id"
     title="Mau ngobrol langsung dengan founder?"
     description="Tidak perlu presentasi formal. Cukup ceritakan apa yang sedang macet di bisnis Anda sekarang."
     secondaryLabel="Lihat portfolio"

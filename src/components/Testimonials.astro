@@ -1,24 +1,36 @@
 ---
-import { testimonials } from '../data/content';
+import { getTestimonials } from '../data/content';
+import { ui, type Locale } from '../data/i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const items = getTestimonials(lang);
 ---
 
 <section class="relative border-t border-line py-20 md:py-28">
   <div class="shell">
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between reveal">
       <div class="max-w-xl">
-        <p class="eyebrow">Testimoni</p>
+        <p class="eyebrow">{t.testimonialsEyebrow}</p>
         <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
-          Yang bicara seharusnya klien, bukan kami.
+          {t.testimonialsTitle}
         </h2>
       </div>
       <p class="max-w-xs text-sm leading-relaxed text-navy-600">
-        Kutipan di bawah dikutip apa adanya dari wawancara singkat setelah proyek selesai.
+        {t.testimonialsDesc}
       </p>
     </div>
 
     <div class="mt-12 grid gap-5 md:grid-cols-3">
       {
-        testimonials.map((item) => (
+        items.map((item) => (
           <figure class="card reveal flex h-full flex-col p-6">
             <svg class="size-6 text-gold-500/40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M9.5 5.5c-3 1.4-4.6 3.7-4.6 6.9V18h5.4v-5.4H7.5c0-2 .9-3.2 2.6-3.9zm9 0c-3 1.4-4.6 3.7-4.6 6.9V18h5.4v-5.4h-2.8c0-2 .9-3.2 2.6-3.9z" />

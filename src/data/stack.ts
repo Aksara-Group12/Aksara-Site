@@ -1,10 +1,12 @@
+import type { Locale } from './i18n';
+
 export interface TechLayer {
   group: string;
   note: string;
   items: string[];
 }
 
-export const techLayers: TechLayer[] = [
+export const techLayersId: TechLayer[] = [
   {
     group: 'Frontend',
     note: 'Dipakai untuk website dan dashboard',
@@ -37,13 +39,48 @@ export const techLayers: TechLayer[] = [
   },
 ];
 
+export const techLayersEn: TechLayer[] = [
+  {
+    group: 'Frontend',
+    note: 'Used for websites and high-performance dashboards',
+    items: ['Astro', 'Next.js', 'React', 'Vue', 'TypeScript', 'Tailwind CSS'],
+  },
+  {
+    group: 'Backend',
+    note: 'Runtimes and scalable APIs',
+    items: ['Node.js', 'Express', 'Laravel', 'Go', 'Python', 'REST / GraphQL'],
+  },
+  {
+    group: 'Data',
+    note: 'Persistent storage and caching queues',
+    items: ['PostgreSQL', 'MySQL', 'Redis', 'MongoDB', 'Supabase'],
+  },
+  {
+    group: 'Mobile',
+    note: 'Unified codebase, dual-platform native feel',
+    items: ['Flutter', 'Dart', 'React Native', 'Kotlin', 'Swift'],
+  },
+  {
+    group: 'Infrastructure',
+    note: 'Automated CI/CD and observability',
+    items: ['Docker', 'Cloudflare', 'Vercel', 'GitHub Actions', 'Linux VPS', 'Sentry'],
+  },
+  {
+    group: 'Integrations',
+    note: 'Industry APIs and payment gateways',
+    items: ['Midtrans', 'Xendit', 'WhatsApp Cloud API', 'Google Workspace', 'RajaOngkir'],
+  },
+];
+
+export const techLayers = techLayersId;
+
+export function getTechLayers(locale: Locale = 'id'): TechLayer[] {
+  return locale === 'en' ? techLayersEn : techLayersId;
+}
+
 export interface Stat {
   value: string;
   label: string;
 }
 
-export const heroStats: Stat[] = [
-  // { value: '32+', label: 'project dikirim' },
-  // { value: '94%', label: 'klien kembali' },
-  // { value: '4', label: 'tahun beroperasi' },
-];
+export const heroStats: Stat[] = [];

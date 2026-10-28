@@ -3,7 +3,9 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
-import { services } from '../data/services';
+import { servicesId } from '../data/services';
+
+const services = servicesId;
 
 const icons: Record<string, string> = {
   layout: 'M4 5h16v14H4zM4 10h16',
@@ -17,6 +19,7 @@ const icons: Record<string, string> = {
 <Base
   title="Layanan"
   description="Website bisnis, aplikasi web, aplikasi mobile, sistem tertanam / IoT, dan perawatan bulanan. Scope jelas, harga tetap, source code milik Anda."
+  lang="id"
 >
   <PageHero
     eyebrow="Layanan"
@@ -116,8 +119,9 @@ const icons: Record<string, string> = {
     </div>
   </div>
 
-  <Faq />
+  <Faq lang="id" />
   <CtaBand
+    lang="id"
     title="Belum yakin butuh yang mana?"
     description="Ceritakan kondisi bisnis Anda sekarang. Kami bantu tentukan apakah cukup website, butuh sistem internal, atau justru belum perlu keduanya."
     secondaryLabel="Lihat portfolio"

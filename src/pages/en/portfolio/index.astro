@@ -1,0 +1,45 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { projectsEn } from '../../../data/projects';
+
+const projects = projectsEn;
+---
+
+<Base
+  title="Portfolio"
+  description="Aksara Developer portfolio: Abdurachman Saleh Airport Malang website and Faraysz portfolio. Real production software, never mockups."
+  lang="en"
+>
+  <PageHero
+    eyebrow="Portfolio"
+    title="Open them live, verify on your phone."
+    description="We never display hypothetical mockups. The cards below take you straight to live production websites, allowing you to evaluate performance and design firsthand."
+    breadcrumb={[{ label: 'Home', href: '/en' }, { label: 'Portfolio' }]}
+  />
+
+  <section class="shell border-t border-line pb-16">
+    <div class="grid gap-5 sm:grid-cols-2">
+      {projects.map((project) => (
+        <ProjectCard project={project} compact={true} lang="en" />
+      ))}
+    </div>
+
+    <p class="mt-8 text-center text-sm text-navy-600">
+      Our next project is currently underway. Want to build something together?
+      <a href="/en/contact" class="text-gold-600 underline decoration-gold-500/40 underline-offset-4 transition-colors hover:text-gold-700">
+        Start a conversation
+      </a>
+    </p>
+  </section>
+
+  <CtaBand
+    lang="en"
+    title="Your project could be our next case study."
+    description="We love tackling challenging engineering problems where the business objective is unambiguous. It starts with a brief chat."
+    secondaryLabel="View services"
+    secondaryHref="/en/services"
+  />
+</Base>

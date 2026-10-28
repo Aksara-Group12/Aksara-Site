@@ -1,9 +1,30 @@
 ---
-import { nav, site, waLink } from '../data/site';
+import { site, getSite, getNav, waLink } from '../data/site';
+import { getEquivalentPath, ui, type Locale } from '../data/i18n';
 import LogoMark from '../components/LogoMark.astro';
 
+interface Props {
+  lang?: Locale;
+}
+
 const path = Astro.url.pathname;
-const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const navItems = getNav(lang);
+const homeHref = lang === 'en' ? '/en' : '/';
+const currentSite = getSite(lang);
+
+const idPath = getEquivalentPath(path, 'id');
+const enPath = getEquivalentPath(path, 'en');
+
+const isActive = (href: string) => {
+  if (href === '/' || href === '/en') {
+    return path === href;
+  }
+  return path === href || path.startsWith(href);
+};
 ---
 
 <header
@@ -11,7 +32,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-300 [&.is-scrolled]:border-line [&.is-scrolled]:bg-parchment-100/95"
 >
   <div class="shell flex h-14 items-center justify-between gap-6 md:h-16">
-    <a href="/" class="group flex items-center gap-2" aria-label={`${site.name} — beranda`}>
+    <a href={homeHref} class="group flex items-center gap-2" aria-label={`${currentSite.name} — ${homeHref}`}>
       <span class="logo-chip h-[15px] w-[13px] transition-transform duration-300 group-hover:-translate-y-0.5">
         <LogoMark class="logo-mark--fill" />
       </span>
@@ -20,9 +41,9 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
+    <nav class="hidden items-center gap-1 md:flex" aria-label={t.navAria}>
       {
-        nav.map((item) => (
+        navItems.map((item) => (
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
@@ -43,6 +64,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     </nav>
 
     <div class="flex items-center gap-1.5 sm:gap-2">
+      <!-- Desktop Language Selector -->
       <div class="relative hidden sm:block" data-lang>
         <button
           type="button"
@@ -57,7 +79,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
             <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
             <path d="M2 12h20" />
           </svg>
-          <span>ID</span>
+          <span class="uppercase">{lang}</span>
           <svg
             class="lang-caret size-3 text-navy-600 transition-transform duration-200"
             viewBox="0 0 24 24"
@@ -75,41 +97,65 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
           data-lang-menu
           hidden
           role="menu"
-          aria-label="Pilih bahasa"
+          aria-label={t.langSelectAria}
           class="absolute top-full right-0 z-50 mt-2 w-48 rounded-2xl border border-line bg-parchment-50 p-1.5 shadow-[0_24px_48px_-24px_rgba(10,28,51,0.45)]"
         >
-          <button
-            type="button"
-            role="menuitemradio"
-            aria-checked="true"
-            class="flex w-full items-center justify-between gap-3 rounded-xl bg-parchment-200 px-3 py-2 text-left text-sm font-medium text-navy-950"
-          >
-            Indonesia
-            <svg class="size-4 text-gold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            role="menuitemradio"
-            aria-checked="false"
-            disabled
-            class="flex w-full cursor-not-allowed items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm text-navy-600/70"
-          >
-            English
-            <span class="rounded-full border border-line px-1.5 py-0.5 text-[9px] tracking-[0.12em] uppercase">
-              Segera
-            </span>
-          </button>
+          {
+            lang === 'id' ? (
+              <div
+                role="menuitemradio"
+                aria-checked="true"
+                class="flex w-full items-center justify-between gap-3 rounded-xl bg-parchment-200 px-3 py-2 text-left text-sm font-medium text-navy-950"
+              >
+                <span>Indonesia</span>
+                <svg class="size-4 text-gold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            ) : (
+              <a
+                href={idPath}
+                role="menuitemradio"
+                aria-checked="false"
+                class="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm text-navy-700 transition-colors hover:bg-parchment-200/60 hover:text-navy-950"
+              >
+                <span>Indonesia</span>
+              </a>
+            )
+          }
+
+          {
+            lang === 'en' ? (
+              <div
+                role="menuitemradio"
+                aria-checked="true"
+                class="flex w-full items-center justify-between gap-3 rounded-xl bg-parchment-200 px-3 py-2 text-left text-sm font-medium text-navy-950"
+              >
+                <span>English</span>
+                <svg class="size-4 text-gold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            ) : (
+              <a
+                href={enPath}
+                role="menuitemradio"
+                aria-checked="false"
+                class="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm text-navy-700 transition-colors hover:bg-parchment-200/60 hover:text-navy-950"
+              >
+                <span>English</span>
+              </a>
+            )
+          }
         </div>
       </div>
 
       <button
         type="button"
         data-theme-toggle
-        aria-label="Aktifkan mode gelap"
+        aria-label={t.darkMode}
         aria-pressed="false"
-        title="Mode Gelap"
+        title={t.titleDarkMode}
         class="flex size-10 items-center justify-center rounded-full border border-line-strong text-navy-900 transition-colors hover:border-gold-500 hover:text-gold-700"
       >
         <svg class="theme-icon--moon size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -129,7 +175,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         data-menu-toggle
         aria-expanded="false"
         aria-controls="mobile-menu"
-        aria-label="Buka menu"
+        aria-label={t.openMenu}
         class="flex size-10 items-center justify-center rounded-full border border-line-strong text-navy-900 md:hidden"
       >
         <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -140,9 +186,9 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   </div>
 
   <div id="mobile-menu" data-menu hidden class="border-t border-line bg-parchment-100/97 backdrop-blur-xl md:hidden">
-    <nav class="shell flex flex-col gap-1 py-4" aria-label="Navigasi seluler">
+    <nav class="shell flex flex-col gap-1 py-4" aria-label={t.mobileNavAria}>
       {
-        nav.map((item) => (
+        navItems.map((item) => (
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
@@ -156,15 +202,29 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         ))
       }
       <div class="mt-2 flex items-center justify-between gap-3 rounded-xl border border-line px-3 py-2.5">
-        <span class="text-[10px] font-semibold tracking-[0.18em] text-navy-600 uppercase">Bahasa</span>
+        <span class="text-[10px] font-semibold tracking-[0.18em] text-navy-600 uppercase">{t.language}</span>
         <div class="flex items-center gap-1.5">
-          <span class="rounded-full bg-parchment-200 px-2.5 py-1 text-xs font-semibold text-navy-950">ID</span>
-          <span class="rounded-full border border-line px-2.5 py-1 text-xs font-medium text-navy-600/70">
-            EN<span class="ml-1 text-[9px] tracking-[0.1em] uppercase">segera</span>
-          </span>
+          {
+            lang === 'id' ? (
+              <span class="rounded-full bg-parchment-200 px-3 py-1 text-xs font-semibold text-navy-950">ID</span>
+            ) : (
+              <a href={idPath} class="rounded-full border border-line px-3 py-1 text-xs font-medium text-navy-600 hover:text-navy-950 transition-colors">
+                ID
+              </a>
+            )
+          }
+          {
+            lang === 'en' ? (
+              <span class="rounded-full bg-parchment-200 px-3 py-1 text-xs font-semibold text-navy-950">EN</span>
+            ) : (
+              <a href={enPath} class="rounded-full border border-line px-3 py-1 text-xs font-medium text-navy-600 hover:text-navy-950 transition-colors">
+                EN
+              </a>
+            )
+          }
         </div>
       </div>
-      <a href={waLink()} target="_blank" rel="noopener" class="btn btn-primary mt-2 w-full">Diskusi gratis</a>
+      <a href={waLink(undefined, lang)} target="_blank" rel="noopener" class="btn btn-primary mt-2 w-full">{t.freeConsultation}</a>
     </nav>
   </div>
 </header>
@@ -347,18 +407,21 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     }
     syncTheme();
 
-    const lang = document.querySelector<HTMLElement>('[data-lang]');
+    const langContainer = document.querySelector<HTMLElement>('[data-lang]');
     const langToggle = document.querySelector<HTMLButtonElement>('[data-lang-toggle]');
     const langMenu = document.querySelector<HTMLElement>('[data-lang-menu]');
-    if (lang && langToggle && langMenu && lang.dataset.bound !== 'true') {
-      lang.dataset.bound = 'true';
+    if (langContainer && langToggle && langMenu && langContainer.dataset.bound !== 'true') {
+      langContainer.dataset.bound = 'true';
       const setOpen = (open: boolean) => {
         langToggle.setAttribute('aria-expanded', String(open));
         langMenu.hidden = !open;
       };
-      langToggle.addEventListener('click', () => setOpen(langMenu.hidden));
+      langToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(langMenu.hidden);
+      });
       document.addEventListener('click', (event) => {
-        if (!lang.contains(event.target as Node)) setOpen(false);
+        if (!langContainer.contains(event.target as Node)) setOpen(false);
       });
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') setOpen(false);

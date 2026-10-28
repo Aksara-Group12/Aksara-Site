@@ -1,22 +1,29 @@
 ---
-import { faqs } from '../data/content';
+import { getFaqs, type Faq as FaqItem } from '../data/content';
+import { ui, type Locale } from '../data/i18n';
 
 interface Props {
-  items?: typeof faqs;
+  items?: FaqItem[];
+  lang?: Locale;
 }
-const { items = faqs } = Astro.props;
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale, items = getFaqs(lang) } = Astro.props;
+
+const t = ui[lang];
 ---
 
 <section class="relative border-y border-line bg-parchment-200/30 py-20 md:py-28">
   <div class="shell">
     <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
       <div class="reveal lg:sticky lg:top-28 lg:self-start">
-        <p class="eyebrow">FAQ</p>
+        <p class="eyebrow">{t.faqEyebrow}</p>
         <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
-          Pertanyaan yang paling sering muncul.
+          {t.faqTitle}
         </h2>
         <p class="mt-4 text-sm leading-relaxed text-navy-600">
-          Tidak menemukan jawabannya? Kirim pertanyaan langsung, kami jawab tanpa jargon.
+          {t.faqDesc}
         </p>
       </div>
 

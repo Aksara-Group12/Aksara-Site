@@ -1,14 +1,20 @@
 ---
 import type { Project } from '../data/projects';
+import { ui, type Locale } from '../data/i18n';
 import SitePreview from './SitePreview.astro';
 
 interface Props {
   project: Project;
   class?: string;
   compact?: boolean;
+  lang?: Locale;
 }
 
-const { project, class: className = '', compact = false } = Astro.props;
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { project, class: className = '', compact = false, lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
 const modalId = `modal-${project.slug}`;
 ---
 
@@ -25,7 +31,7 @@ const modalId = `modal-${project.slug}`;
     data-modal-target={modalId}
     role="button"
     tabindex="0"
-    aria-label={`Buka detail ${project.title}`}
+    aria-label={`${t.projectOpenDetail} ${project.title}`}
   >
     <SitePreview
       src={project.preview}
@@ -72,7 +78,7 @@ const modalId = `modal-${project.slug}`;
           <line x1="12" y1="16" x2="12" y2="12"></line>
           <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
-        <span>Lihat Detail Lengkap</span>
+        <span>{t.projectFullDetailBtn}</span>
       </button>
     </div>
   </div>
@@ -99,7 +105,7 @@ const modalId = `modal-${project.slug}`;
         <button
           type="button"
           class="modal-close-btn flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-navy-600 transition-all hover:border-gold-500 hover:bg-gold-500/10 hover:text-navy-950 hover:rotate-90 duration-200"
-          aria-label="Tutup pop-up"
+          aria-label={t.projectCloseBtn}
         >
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -122,7 +128,7 @@ const modalId = `modal-${project.slug}`;
 
         <!-- Deskripsi Lengkap -->
         <div class="modal-item-animate">
-          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Tentang Proyek</h3>
+          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">{t.projectAboutTitle}</h3>
           <p class="mt-2 text-sm leading-relaxed text-navy-800">
             {project.summary}
           </p>
@@ -131,7 +137,7 @@ const modalId = `modal-${project.slug}`;
         <!-- Fitur & Sorotan -->
         {project.highlights && project.highlights.length > 0 && (
           <div class="modal-item-animate">
-            <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Fitur Utama & Sorotan</h3>
+            <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">{t.projectHighlightsTitle}</h3>
             <ul class="mt-2 space-y-2">
               {project.highlights.map((item) => (
                 <li class="flex items-start gap-2.5 text-sm leading-relaxed text-navy-700">
@@ -145,7 +151,7 @@ const modalId = `modal-${project.slug}`;
 
         <!-- Stack Teknologi -->
         <div class="modal-item-animate">
-          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">Teknologi / Stack Digunakan</h3>
+          <h3 class="text-xs font-bold tracking-wider uppercase text-navy-600">{t.projectStackTitle}</h3>
           <div class="mt-2.5 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span class="chip border-line bg-parchment-200/90 text-navy-800 text-xs font-mono font-medium px-2.5 py-1">
@@ -162,7 +168,7 @@ const modalId = `modal-${project.slug}`;
           type="button"
           class="modal-close-btn btn btn-ghost text-xs px-4 py-2 text-navy-700 hover:bg-parchment-200/60"
         >
-          Tutup
+          {t.projectCloseBtn}
         </button>
 
         <a
@@ -171,7 +177,7 @@ const modalId = `modal-${project.slug}`;
           rel="noopener noreferrer"
           class="btn btn-primary text-xs px-5 py-2 font-semibold shadow-md flex items-center gap-2 hover:scale-[1.02] transition-transform"
         >
-          <span>Kunjungi Website ({project.domain})</span>
+          <span>{t.projectVisitBtn} ({project.domain})</span>
           <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
             <polyline points="15 3 21 3 21 9"></polyline>
@@ -205,7 +211,7 @@ const modalId = `modal-${project.slug}`;
   @keyframes modalPopIn {
     0% {
       opacity: 0;
-      transform: scale(0.92) translateY(24px);
+      transform: scale(0.92) translateY(12px);
     }
     100% {
       opacity: 1;
@@ -220,7 +226,7 @@ const modalId = `modal-${project.slug}`;
     }
     100% {
       opacity: 0;
-      transform: scale(0.94) translateY(14px);
+      transform: scale(0.94) translateY(8px);
     }
   }
 
@@ -232,16 +238,16 @@ const modalId = `modal-${project.slug}`;
     }
     100% {
       opacity: 1;
-      background-color: rgba(10, 28, 51, 0.72);
-      backdrop-filter: blur(8px);
+      background-color: rgba(10, 28, 51, 0.65);
+      backdrop-filter: blur(4px);
     }
   }
 
   @keyframes backdropFadeOut {
     0% {
       opacity: 1;
-      background-color: rgba(10, 28, 51, 0.72);
-      backdrop-filter: blur(8px);
+      background-color: rgba(10, 28, 51, 0.65);
+      backdrop-filter: blur(4px);
     }
     100% {
       opacity: 0;
@@ -250,19 +256,20 @@ const modalId = `modal-${project.slug}`;
     }
   }
 
-  /* Micro-animation stagger untuk isi konten modal */
-  .modal-item-animate {
-    animation: modalItemFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Stagger item animasi saat pop-up dibuka */
+  .project-modal[open] .modal-item-animate {
+    animation: itemSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
-  .modal-item-animate:nth-child(1) { animation-delay: 0.06s; }
-  .modal-item-animate:nth-child(2) { animation-delay: 0.12s; }
-  .modal-item-animate:nth-child(3) { animation-delay: 0.18s; }
-  .modal-item-animate:nth-child(4) { animation-delay: 0.24s; }
 
-  @keyframes modalItemFadeUp {
+  .project-modal[open] .modal-item-animate:nth-child(1) { animation-delay: 0.05s; }
+  .project-modal[open] .modal-item-animate:nth-child(2) { animation-delay: 0.1s; }
+  .project-modal[open] .modal-item-animate:nth-child(3) { animation-delay: 0.15s; }
+  .project-modal[open] .modal-item-animate:nth-child(4) { animation-delay: 0.2s; }
+
+  @keyframes itemSlideUp {
     0% {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(8px);
     }
     100% {
       opacity: 1;
@@ -273,81 +280,72 @@ const modalId = `modal-${project.slug}`;
 
 <script>
   function setupProjectModals() {
-    const triggers = document.querySelectorAll<HTMLElement>('[data-modal-target]');
+    // 1. Tangani pembukaan modal via tombol pemicu
+    document.querySelectorAll<HTMLElement>('.card-trigger').forEach((trigger) => {
+      if (trigger.dataset.bound === 'true') return;
+      trigger.dataset.bound = 'true';
 
-    triggers.forEach((trigger) => {
-      if (trigger.dataset.modalBound === 'true') return;
-      trigger.dataset.modalBound = 'true';
-
-      const targetId = trigger.dataset.modalTarget;
-      if (!targetId) return;
-
-      const modal = document.getElementById(targetId) as HTMLDialogElement | null;
-      if (!modal) return;
-
-      const openModal = () => {
-        modal.classList.remove('modal-closing');
-        modal.showModal();
-        document.body.style.overflow = 'hidden';
+      const openHandler = (e: Event) => {
+        e.preventDefault();
+        const targetId = trigger.dataset.modalTarget;
+        if (!targetId) return;
+        const dialog = document.getElementById(targetId) as HTMLDialogElement | null;
+        if (dialog && !dialog.open) {
+          dialog.showModal();
+          document.body.classList.add('overflow-hidden');
+        }
       };
 
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openModal();
-      });
-
-      trigger.addEventListener('keydown', (e) => {
+      trigger.addEventListener('click', openHandler);
+      trigger.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openModal();
+          openHandler(e);
         }
       });
     });
 
-    const modals = document.querySelectorAll<HTMLDialogElement>('.project-modal');
-    modals.forEach((modal) => {
-      if (modal.dataset.modalInit === 'true') return;
-      modal.dataset.modalInit = 'true';
+    // 2. Tangani penutupan modal dengan animasi halus
+    document.querySelectorAll<HTMLDialogElement>('.project-modal').forEach((dialog) => {
+      if (dialog.dataset.bound === 'true') return;
+      dialog.dataset.bound = 'true';
 
-      let isClosing = false;
-      const closeModal = () => {
-        if (isClosing || !modal.open) return;
-        isClosing = true;
-        modal.classList.add('modal-closing');
-
-        setTimeout(() => {
-          modal.close();
-          modal.classList.remove('modal-closing');
-          document.body.style.overflow = '';
-          isClosing = false;
-        }, 220);
+      const closeModalWithAnimation = () => {
+        dialog.classList.add('modal-closing');
+        const handleAnimationEnd = () => {
+          dialog.classList.remove('modal-closing');
+          dialog.close();
+          document.body.classList.remove('overflow-hidden');
+          dialog.removeEventListener('animationend', handleAnimationEnd);
+        };
+        dialog.addEventListener('animationend', handleAnimationEnd);
       };
 
-      const closeButtons = modal.querySelectorAll('.modal-close-btn');
-      closeButtons.forEach((btn) => {
+      // Tombol Tutup di dalam modal
+      dialog.querySelectorAll('.modal-close-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          closeModal();
+          e.preventDefault();
+          closeModalWithAnimation();
         });
       });
 
-      // Klik backdrop untuk menutup modal
-      modal.addEventListener('click', (e) => {
-        const dialogDimensions = modal.getBoundingClientRect();
-        if (
-          e.clientX < dialogDimensions.left ||
-          e.clientX > dialogDimensions.right ||
-          e.clientY < dialogDimensions.top ||
-          e.clientY > dialogDimensions.bottom
-        ) {
-          closeModal();
+      // Klik pada Backdrop di luar modal
+      dialog.addEventListener('click', (e: MouseEvent) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY &&
+          e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX &&
+          e.clientX <= rect.left + rect.width
+        );
+        if (!isInDialog) {
+          closeModalWithAnimation();
         }
       });
 
-      // Escape key handler agar animasi exit tetap berjalan
-      modal.addEventListener('cancel', (e) => {
+      // Tombol Escape bawaan
+      dialog.addEventListener('cancel', (e) => {
         e.preventDefault();
-        closeModal();
+        closeModalWithAnimation();
       });
     });
   }

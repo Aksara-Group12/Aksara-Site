@@ -1,13 +1,27 @@
 ---
-import { site, waLink } from '../data/site';
-import { services } from '../data/services';
+import { site, getSite, waLink } from '../data/site';
+import { getServices } from '../data/services';
+import { ui, type Locale } from '../data/i18n';
 import LogoMark from '../components/LogoMark.astro';
 
+interface Props {
+  lang?: Locale;
+}
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const currentSite = getSite(lang);
+const serviceList = getServices(lang);
 const year = new Date().getFullYear();
+const homeHref = lang === 'en' ? '/en' : '/';
+const servicesHrefPrefix = lang === 'en' ? '/en/services' : '/layanan';
 ---
 
 <footer class="surface-navy relative overflow-hidden border-t border-gold-500/30">
-    <div class="glow -top-44 left-1/2 size-[38rem] -translate-x-1/2 text-gold-500/12"></div>
+  <div class="glow -top-44 left-1/2 size-[38rem] -translate-x-1/2 text-gold-500/12"></div>
 
   <div class="shell relative py-16 md:py-20">
     <div class="rule-ornament mb-14 opacity-70">
@@ -16,7 +30,7 @@ const year = new Date().getFullYear();
 
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
       <div>
-        <a href="/" class="flex items-center gap-3">
+        <a href={homeHref} class="flex items-center gap-3">
           <span class="flex size-11 items-center justify-center">
             <LogoMark class="logo-mark--on-dark" />
           </span>
@@ -25,12 +39,11 @@ const year = new Date().getFullYear();
           </span>
         </a>
         <p class="mt-6 max-w-sm text-sm leading-relaxed text-on-deep-muted/80">
-          Software house kecil yang membangun website, aplikasi web, dan aplikasi mobile untuk bisnis
-          Indonesia. Tim kecil, komunikasi langsung, kode milik Anda.
+          {t.footerDesc}
         </p>
 
-        <a href={waLink()} target="_blank" rel="noopener" class="btn btn-gold mt-7">
-          Mulai diskusi
+        <a href={waLink(undefined, lang)} target="_blank" rel="noopener" class="btn btn-gold mt-7">
+          {t.footerCta}
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -38,13 +51,13 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Layanan</h2>
+        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">{t.footerServices}</h2>
         <ul class="mt-5 space-y-3 text-sm">
           {
-            services.map((service) => (
+            serviceList.map((service) => (
               <li>
                 <a
-                  href={`/layanan#${service.slug}`}
+                  href={`${servicesHrefPrefix}#${service.slug}`}
                   class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
                 >
                   {service.shortTitle}
@@ -56,27 +69,27 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Kontak</h2>
+        <h2 class="text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">{t.footerContact}</h2>
         <ul class="mt-5 space-y-3 text-sm">
           <li>
             <a
-              href={`mailto:${site.email}`}
+              href={`mailto:${currentSite.email}`}
               class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
             >
-              {site.email}
+              {currentSite.email}
             </a>
           </li>
           <li>
             <a
-              href={waLink()}
+              href={waLink(undefined, lang)}
               target="_blank"
               rel="noopener"
               class="text-on-deep-muted/85 transition-colors hover:text-gold-200"
             >
-              {site.phone}
+              {currentSite.phone}
             </a>
           </li>
-          <li class="text-on-deep-muted/60">{site.address}</li>
+          <li class="text-on-deep-muted/60">{currentSite.address}</li>
         </ul>
 
         <h2 class="mt-9 text-serif text-[11px] tracking-[0.2em] text-gold-300 uppercase">Instagram</h2>
@@ -99,8 +112,8 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="mt-14 flex flex-col gap-3 border-t border-on-deep/15 pt-6 text-xs text-on-deep-muted/60 sm:flex-row sm:items-center sm:justify-between">
-      <p>© {year} {site.name}. Seluruh hak cipta dilindungi.</p>
-      <p class="text-serif tracking-[0.16em]">Dibangun dengan Astro &amp; Tailwind</p>
+      <p>© {year} {currentSite.name}. {t.footerCopyright}</p>
+      <p class="text-serif tracking-[0.16em]">{t.footerBuiltWith}</p>
     </div>
   </div>
 </footer>

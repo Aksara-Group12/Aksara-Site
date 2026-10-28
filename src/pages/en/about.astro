@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { principlesEn, processStepsEn } from '../../data/content';
+import { techLayersEn } from '../../data/stack';
+
+const principles = principlesEn;
+const processSteps = processStepsEn;
+const techLayers = techLayersEn;
+---
+
+<Base
+  title="About"
+  description="Aksara Developer is a software engineering partner based in Jember since 2026. Websites, web apps, and mobile apps built with transparent workflows and full source code ownership."
+  lang="en"
+>
+  <PageHero
+    eyebrow="About"
+    title="Getting to Know Aksara Developer"
+    description="A software engineering studio combining modern visual aesthetics with robust clean code architecture for websites, web applications, and mobile apps of all scales."
+    breadcrumb={[{ label: 'Home', href: '/en' }, { label: 'About' }]}
+  />
+
+  <section class="shell border-t border-line pb-16">
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">Company Profile</p>
+      <div class="mt-6 space-y-6 text-[15px] leading-relaxed text-navy-700">
+        <p>
+          Aksara Developer is an independent software house based in Jember, East Java, founded in 2026.
+          Two engineers, focused minds, and one conviction: growing businesses deserve neat, modular software
+          without paying big agency overhead.
+        </p>
+        <p>
+          From high-converting corporate portals and campaign landing pages to complex internal workflow
+          systems and mobile applications, we are committed to delivering exceptional craftsmanship through
+          transparent, anxiety-free execution.
+        </p>
+        <p>
+          Our inaugural public deployment was the official portal for Abdurachman Saleh Airport Malang. We
+          deliberately refrain from offering generic social media marketing or superficial branding — we believe
+          in mastering software engineering deeply and delivering it properly.
+        </p>
+        <p>
+          If you are reading this and feel your project might be considered "too small" for a conventional agency,
+          that is precisely where we excel. We will never promise unattainable fantasies or quote arbitrary fees
+          that cannot be justified by real technical substance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative border-t border-line py-20">
+    <div class="shell">
+      <p class="eyebrow reveal">Core Principles</p>
+      <h2 class="mt-5 max-w-xl text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl reveal">
+        Four non-negotiable standards.
+      </h2>
+
+      <div class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {
+          principles.map((item, index) => (
+            <div class="reveal flex gap-4">
+              <span class="mt-0.5 font-mono text-xs text-gold-500/70">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="text-base font-semibold text-navy-950">{item.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-navy-700">{item.description}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="relative border-t border-line py-20">
+    <div class="shell">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div class="reveal">
+          <p class="eyebrow">Tooling & Stack</p>
+          <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+            What we use daily.
+          </h2>
+        </div>
+        <div class="divide-y divide-line border-t border-line">
+          {
+            techLayers.map((layer) => (
+              <div class="grid gap-3 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                <h3 class="text-sm font-semibold text-navy-950">{layer.group}</h3>
+                <div class="flex flex-wrap gap-1.5">
+                  {layer.items.map((item) => <span class="chip">{item}</span>)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative border-y border-line bg-parchment-200/30 py-20">
+    <div class="shell">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div class="reveal">
+          <p class="eyebrow">Workflow</p>
+          <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
+            Six disciplined stages, zero blackout periods.
+          </h2>
+        </div>
+        <ol class="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+          {
+            processSteps.map((step) => (
+              <li>
+                <p class="font-mono text-[11px] text-gold-500/70">{step.number}</p>
+                <h3 class="mt-1.5 text-sm font-semibold text-navy-950">{step.title}</h3>
+                <p class="mt-1.5 text-[13px] leading-relaxed text-navy-700">{step.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    lang="en"
+    title="Want to speak directly with the engineers?"
+    description="No formal presentations required. Tell us what operational process is slowing your business down today."
+    secondaryLabel="View portfolio"
+    secondaryHref="/en/portfolio"
+  />
+</Base>

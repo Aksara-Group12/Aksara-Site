@@ -1,6 +1,18 @@
 ---
 import { waLink } from '../data/site';
+import { ui, type Locale } from '../data/i18n';
 import LogoMark from '../components/LogoMark.astro';
+
+interface Props {
+  lang?: Locale;
+}
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const portfolioHref = lang === 'en' ? '/en/portfolio' : '/portfolio';
 ---
 
 <section class="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16 min-h-[560px] lg:min-h-[640px] flex items-center">
@@ -27,31 +39,29 @@ import LogoMark from '../components/LogoMark.astro';
   <div class="shell relative z-10 w-full py-4">
     <div class="max-w-xl lg:max-w-2xl">
       <div data-hero>
-        <p class="eyebrow">Software Company</p>
+        <p class="eyebrow">{t.heroEyebrow}</p>
 
         <h1
           class="mt-6 text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-navy-950 sm:text-[3.6rem] lg:text-[3.9rem]"
         >
-          Kode yang rapi.<br />
-          Bisnis yang<br />
-          <span class="text-gold-600">jalan lebih cepat.</span>
+          {t.heroTitle1}<br />
+          {t.heroTitle2}<br />
+          <span class="text-gold-600">{t.heroTitleHighlight}</span>
         </h1>
 
         <p class="mt-6 max-w-lg text-[15px] leading-relaxed text-navy-700 md:text-base">
-          Aksara Developer membangun website, sistem operasional, dan aplikasi mobile untuk UMKM
-          dan startup Indonesia yang sudah lelah menambal banyak tools. Satu tim, satu titik
-          tanggung jawab.
+          {t.heroDesc}
         </p>
 
         <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href={waLink()} target="_blank" rel="noopener" class="btn btn-primary">
-            Diskusi project Anda
+          <a href={waLink(undefined, lang)} target="_blank" rel="noopener" class="btn btn-primary">
+            {t.heroCtaPrimary}
             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </a>
-          <a href="/portfolio" class="btn btn-ghost">
-            Lihat hasil kerja
+          <a href={portfolioHref} class="btn btn-ghost">
+            {t.heroCtaSecondary}
           </a>
         </div>
       </div>

@@ -1,0 +1,321 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import { site, waLink } from '../../data/site';
+
+const budgets = [
+  'Under Rp 5M (~$350)',
+  'Rp 5–15M (~$350–$1,000)',
+  'Rp 15–40M (~$1,000–$2,500)',
+  'Above Rp 40M (~$2,500+)',
+  'Undecided',
+];
+const interests = [
+  'Business Website',
+  'Web Application',
+  'Mobile Application',
+  'Monthly Maintenance',
+  'Not sure yet',
+];
+---
+
+<Base
+  title="Contact"
+  description="Free 45-minute discovery consultation to map your company's digital requirements. Average response under 2 hours during business hours."
+  lang="en"
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Starts with a conversation, not a boilerplate proposal."
+    description="Fill out the form or reach out directly on WhatsApp. We reply with thoughtful, project-specific technical questions rather than canned sales pitches."
+    breadcrumb={[{ label: 'Home', href: '/en' }, { label: 'Contact' }]}
+  />
+
+  <section class="shell border-t border-line pb-20">
+    <div class="grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-14">
+      <div class="card reveal relative p-6 md:p-8">
+        <!-- Success State Notification -->
+        <div
+          id="contact-success"
+          class="hidden flex-col items-center justify-center py-12 text-center animate-in fade-in zoom-in-95 duration-300"
+        >
+          <div class="flex size-14 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600">
+            <svg class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h2 class="mt-5 text-xl font-bold tracking-tight text-navy-950 sm:text-2xl">
+            Message Successfully Sent!
+          </h2>
+          <p class="mt-2.5 max-w-md text-sm leading-relaxed text-navy-700">
+            Thank you for reaching out. Your message has landed directly in the engineering team's inbox. We will get back to you within 2 business hours.
+          </p>
+          <button
+            type="button"
+            id="btn-reset-form"
+            class="btn btn-ghost mt-6 text-xs font-semibold text-navy-800 border-line hover:border-gold-500 hover:text-gold-600"
+          >
+            Send another message
+          </button>
+        </div>
+
+        <!-- Main Contact Form -->
+        <form
+          id="contact-form"
+          action={`https://formsubmit.co/ajax/${site.email}`}
+          method="POST"
+          class="space-y-6"
+          data-email={site.email}
+        >
+          <input type="hidden" name="_subject" value="New inquiry from Aksara Developer website (EN)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+
+          <!-- Error Alert -->
+          <div
+            id="contact-error"
+            class="hidden rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-xs leading-relaxed text-red-600"
+          >
+            Failed to send message. Please retry or reach out directly via
+            <a href={waLink(undefined, 'en')} target="_blank" rel="noopener" class="font-bold underline">WhatsApp here</a>.
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="sm:col-span-1">
+              <label for="nama" class="block text-xs font-medium text-navy-700">Full name</label>
+              <input
+                id="nama"
+                name="nama"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="Your Name"
+                class="mt-2 w-full rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm text-navy-950 placeholder:text-navy-600/60 focus:border-gold-500 focus:outline-none transition-colors"
+              />
+            </div>
+
+            <div class="sm:col-span-1">
+              <label for="wa" class="block text-xs font-medium text-navy-700">WhatsApp / Phone number</label>
+              <input
+                id="wa"
+                name="whatsapp"
+                type="tel"
+                required
+                autocomplete="tel"
+                inputmode="tel"
+                placeholder="+62 812xxxxxxx"
+                class="mt-2 w-full rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm text-navy-950 placeholder:text-navy-600/60 focus:border-gold-500 focus:outline-none transition-colors"
+              />
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="email" class="block text-xs font-medium text-navy-700">Email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="name@company.com"
+                class="mt-2 w-full rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm text-navy-950 placeholder:text-navy-600/60 focus:border-gold-500 focus:outline-none transition-colors"
+              />
+            </div>
+
+            <div>
+              <label for="layanan" class="block text-xs font-medium text-navy-700">Service of interest</label>
+              <select
+                id="layanan"
+                name="layanan"
+                class="mt-2 w-full appearance-none rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm text-navy-950 focus:border-gold-500 focus:outline-none transition-colors"
+              >
+                {interests.map((item) => <option value={item}>{item}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label for="budget" class="block text-xs font-medium text-navy-700">Estimated budget</label>
+              <select
+                id="budget"
+                name="budget"
+                class="mt-2 w-full appearance-none rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm text-navy-950 focus:border-gold-500 focus:outline-none transition-colors"
+              >
+                {budgets.map((item) => <option value={item}>{item}</option>)}
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="pesan" class="block text-xs font-medium text-navy-700">Tell us briefly about your project</label>
+              <textarea
+                id="pesan"
+                name="pesan"
+                rows="5"
+                required
+                placeholder="What business do you run, what core problem are you looking to solve, and what is your desired timeframe?"
+                class="mt-2 w-full resize-y rounded-xl border border-line bg-parchment-200 px-3.5 py-2.5 text-sm leading-relaxed text-navy-950 placeholder:text-navy-600/60 focus:border-gold-500 focus:outline-none transition-colors"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p class="max-w-xs text-[11px] leading-relaxed text-navy-600">
+              Information is strictly used to reply to your inquiry. Never shared with third parties.
+            </p>
+            <button
+              type="submit"
+              id="btn-submit"
+              class="btn btn-primary min-w-[140px] justify-center gap-2"
+            >
+              <span class="btn-text">Send message</span>
+              <svg class="btn-icon size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="reveal space-y-4">
+        <a
+          href={waLink(undefined, 'en')}
+          target="_blank"
+          rel="noopener"
+          class="card group flex items-start gap-4 p-6"
+        >
+          <span class="flex size-10 shrink-0 items-center justify-center rounded-xl border border-gold-500/30 bg-gold-500/10 text-gold-600">
+            <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.39a9.86 9.86 0 0 0 4.74 1.21c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2m-3.6 6.1c.15 0 .35-.06.55.42.21.49.7 1.71.76 1.83.06.13.11.28.02.44-.08.17-.12.28-.25.42-.12.15-.26.32-.37.44-.12.12-.25.25-.11.5.14.25.61 1.01 1.38 1.72.95.84 1.75 1.11 2 1.23.25.13.4.11.54-.06.15-.17.63-.73.8-.98.16-.25.33-.21.56-.12.23.08 1.45.68 1.7.81.25.12.42.19.48.29.06.1.06.6-.14 1.18-.21.58-1.2 1.11-1.68 1.18-.43.06-.97.09-1.57-.1-.36-.11-.82-.26-1.41-.52-2.49-1.07-4.11-3.56-4.24-3.74-.13-.16-1.03-1.36-1.03-2.6s.65-1.85.88-2.1c.23-.25.5-.31.67-.31" />
+            </svg>
+          </span>
+          <div>
+            <h2 class="text-sm font-semibold text-navy-950 group-hover:text-gold-600">Direct WhatsApp</h2>
+            <p class="mt-1 text-[13px] text-navy-700">{site.phone}</p>
+            <p class="mt-2 text-[11px] text-navy-600">Fastest response. Average reply under 2 hours.</p>
+          </div>
+        </a>
+
+        <div class="card p-6">
+          <h2 class="text-sm font-semibold text-navy-950">Email</h2>
+          <a href={`mailto:${site.email}`} class="mt-1 block text-[13px] text-navy-700 transition-colors hover:text-gold-600">
+            {site.email}
+          </a>
+          <p class="mt-2 text-[11px] text-navy-600">Best for formal RFPs, documentation, or tender briefs.</p>
+        </div>
+
+        <div class="card p-6">
+          <h2 class="text-sm font-semibold text-navy-950">Working Hours</h2>
+          <dl class="mt-3 space-y-2 text-[13px]">
+            <div class="flex justify-between gap-4">
+              <dt class="text-navy-600">Monday–Friday</dt>
+              <dd class="text-navy-900">09:00–18:00</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-navy-600">Saturday</dt>
+              <dd class="text-navy-900">10:00–14:00</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-navy-600">Sunday &amp; Holidays</dt>
+              <dd class="text-navy-900">Closed</dd>
+            </div>
+          </dl>
+          <p class="mt-3 border-t border-line pt-3 text-[11px] text-navy-600">Western Indonesia Time (WIB / UTC+7)</p>
+        </div>
+
+        <div class="rounded-[1.25rem] border border-line bg-parchment-50/40 p-6">
+          <p class="text-[13px] leading-relaxed text-navy-700">
+            Have an existing RFP document, wireframes, or reference website? Email them directly or note
+            them above. We examine all materials before our discussion session.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <Faq lang="en" />
+</Base>
+
+<script>
+  function setupContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const successBox = document.getElementById('contact-success');
+    const errorBox = document.getElementById('contact-error');
+    const submitBtn = document.getElementById('btn-submit') as HTMLButtonElement | null;
+    const resetBtn = document.getElementById('btn-reset-form');
+
+    if (!form || form.dataset.ajaxInit === 'true') return;
+    form.dataset.ajaxInit = 'true';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!submitBtn) return;
+      const originalContent = submitBtn.innerHTML;
+
+      // Loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="size-4 animate-spin text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+        </svg>
+        <span>Sending...</span>
+      `;
+
+      if (errorBox) errorBox.classList.add('hidden');
+
+      const emailTarget = form.dataset.email || 'aksaradeveloper2026@gmail.com';
+      const endpoint = `https://formsubmit.co/ajax/${emailTarget}`;
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+          },
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok && (data.success === 'true' || data.success === true)) {
+          // Success: hide form, show success state without redirect
+          form.classList.add('hidden');
+          if (successBox) {
+            successBox.classList.remove('hidden');
+            successBox.classList.add('flex');
+          }
+          form.reset();
+        } else {
+          // Server error message
+          if (errorBox) {
+            errorBox.textContent = data.message || 'Failed to send message. Please retry or contact us via WhatsApp.';
+            errorBox.classList.remove('hidden');
+          }
+        }
+      } catch (err) {
+        // Network error
+        if (errorBox) {
+          errorBox.textContent = 'Connection error. Please check your network or contact us via WhatsApp.';
+          errorBox.classList.remove('hidden');
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalContent;
+      }
+    });
+
+    // Reset button to send another message
+    resetBtn?.addEventListener('click', () => {
+      if (successBox) {
+        successBox.classList.add('hidden');
+        successBox.classList.remove('flex');
+      }
+      form.classList.remove('hidden');
+    });
+  }
+
+  setupContactForm();
+  document.addEventListener('astro:page-load', setupContactForm);
+</script>

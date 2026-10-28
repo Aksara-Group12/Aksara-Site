@@ -1,7 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import globalCss from '../styles/global.css?url';
-import { site } from '../data/site';
+import { site, getSite } from '../data/site';
+import { getEquivalentPath, type Locale } from '../data/i18n';
 import Navbar from '../components/Navbar.astro';
 import LogoMark from '../components/LogoMark.astro';
 import Footer from '../components/Footer.astro';
@@ -11,16 +12,28 @@ interface Props {
   title: string;
   description?: string;
   ogTitle?: string;
+  lang?: Locale;
 }
 
-const { title, description = site.description, ogTitle } = Astro.props;
-const pageTitle = title === site.name ? title : `${title} — ${site.name}`;
-const canonical = new URL(Astro.url.pathname, site.url).href;
+const pathname = Astro.url.pathname;
+const detectedLocale: Locale = pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale, ogTitle } = Astro.props;
+
+const currentSite = getSite(lang);
+const description = Astro.props.description ?? currentSite.description;
+const pageTitle = Astro.props.title === currentSite.name ? Astro.props.title : `${Astro.props.title} — ${currentSite.name}`;
+
+const canonical = new URL(pathname, site.url).href;
 const ogImage = new URL('/og.png', site.url).href;
+
+const idPath = getEquivalentPath(pathname, 'id');
+const enPath = getEquivalentPath(pathname, 'en');
+const idUrl = new URL(idPath, site.url).href;
+const enUrl = new URL(enPath, site.url).href;
 ---
 
 <!doctype html>
-<html lang="id" transition:animate="none">
+<html lang={lang} transition:animate="none">
   <head>
     <ClientRouter />
     <meta charset="utf-8" />
@@ -28,6 +41,9 @@ const ogImage = new URL('/og.png', site.url).href;
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="id" href={idUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={idUrl} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f9efd9" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -58,7 +74,7 @@ const ogImage = new URL('/og.png', site.url).href;
     </script>
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.name} />
+    <meta property="og:site_name" content={currentSite.name} />
     <meta property="og:title" content={ogTitle ?? pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -66,13 +82,13 @@ const ogImage = new URL('/og.png', site.url).href;
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
-    <meta property="og:locale" content="id_ID" />
+    <meta property="og:image:alt" content={`${currentSite.name} — ${currentSite.tagline}`} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'id_ID'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle ?? pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${site.name} — ${site.tagline}`} />
+    <meta name="twitter:image:alt" content={`${currentSite.name} — ${currentSite.tagline}`} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -85,16 +101,16 @@ const ogImage = new URL('/og.png', site.url).href;
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
-      name: site.name,
-      description: site.description,
-      url: site.url,
+      name: currentSite.name,
+      description: currentSite.description,
+      url: currentSite.url,
       logo: new URL('/logo-mark.png', site.url).href,
       image: ogImage,
-      email: site.email,
-      telephone: site.phone,
+      email: currentSite.email,
+      telephone: currentSite.phone,
       areaServed: 'ID',
       address: { '@type': 'PostalAddress', addressLocality: 'Jember', addressCountry: 'ID' },
-      sameAs: Object.values(site.socials),
+      sameAs: Object.values(currentSite.socials),
     })} />
   </head>
   <body class="min-h-screen bg-parchment-100 antialiased">
@@ -110,17 +126,17 @@ const ogImage = new URL('/og.png', site.url).href;
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-deep-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-on-deep"
     >
-      Lewati ke konten utama
+      {lang === 'en' ? 'Skip to main content' : 'Lewati ke konten utama'}
     </a>
 
     <div class="relative z-10">
-      <Navbar />
+      <Navbar lang={lang} />
       <main id="main">
         <slot />
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </div>
-    <WhatsappFloat />
+    <WhatsappFloat lang={lang} />
 
     <div id="page-veil" class="page-veil" transition:persist aria-hidden="true">
       <div class="page-veil__panel page-veil__panel--top"></div>

@@ -1,6 +1,19 @@
 ---
-import { services } from '../data/services';
+import { getServices } from '../data/services';
+import { ui, type Locale } from '../data/i18n';
 import ServiceCardVisual from './ServiceCardVisual.astro';
+
+interface Props {
+  lang?: Locale;
+}
+
+const path = Astro.url.pathname;
+const detectedLocale: Locale = path === '/en' || path.startsWith('/en/') ? 'en' : 'id';
+const { lang = detectedLocale } = Astro.props;
+
+const t = ui[lang];
+const services = getServices(lang);
+const servicesHrefPrefix = lang === 'en' ? '/en/services' : '/layanan';
 
 const icons: Record<string, string> = {
   layout: 'M4 5h16v14H4zM4 10h16',
@@ -14,13 +27,12 @@ const icons: Record<string, string> = {
 <section class="relative border-t border-line pt-8 pb-20 md:pt-12 md:pb-28">
   <div class="shell">
     <div class="max-w-2xl reveal">
-      <p class="eyebrow">Layanan</p>
+      <p class="eyebrow">{t.servicesEyebrow}</p>
       <h2 class="mt-5 text-3xl leading-tight font-bold tracking-[-0.02em] sm:text-4xl">
-        Layanan yang kami kerjakan dengan baik.
+        {t.servicesTitle}
       </h2>
       <p class="mt-4 text-[15px] leading-relaxed text-navy-700">
-        Kami tidak mengerjakan semuanya. Fokus di lima area keahlian ini supaya hasilnya benar-benar matang,
-        bukan sekadar bisa jalan.
+        {t.servicesDesc}
       </p>
     </div>
 
@@ -68,10 +80,10 @@ const icons: Record<string, string> = {
                     <span class="size-1 rotate-45 bg-current opacity-40"></span>
                     <span class="font-mono opacity-80">{service.timeline}</span>
                     <a
-                      href={`/layanan#${service.slug}`}
+                      href={`${servicesHrefPrefix}#${service.slug}`}
                       class="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold text-gold-600 underline-offset-4 hover:underline"
                     >
-                      Selengkapnya
+                      {t.servicesLearnMore}
                       <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
@@ -95,7 +107,7 @@ const icons: Record<string, string> = {
 
       rail.addEventListener('click', (event) => {
         const item = (event.target as HTMLElement).closest<HTMLElement>('.service-rail__item');
-        if (!item || event.target instanceof Element && event.target.closest('a')) return;
+        if (!item || (event.target instanceof Element && event.target.closest('a'))) return;
 
         rail.querySelectorAll<HTMLElement>('.service-rail__item').forEach((el) => {
           const active = el === item;

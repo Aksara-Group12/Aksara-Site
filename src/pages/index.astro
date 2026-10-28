@@ -9,17 +9,17 @@ import TechStack from '../components/TechStack.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
-import { site } from '../data/site';
+import { siteId } from '../data/site';
 ---
 
-<Base title={site.name} description={site.description} ogTitle="Aksara Developer — Software house untuk bisnis yang serius tumbuh">
-  <Hero />
-  <ServicesGrid />
-  <FeaturedWork />
-  <Process />
-  <WhyUs />
-  <TechStack />
-  <Testimonials />
-  <Faq />
-  <CtaBand />
+<Base title={siteId.name} description={siteId.description} ogTitle="Aksara Developer — Software house untuk bisnis yang serius tumbuh" lang="id">
+  <Hero lang="id" />
+  <ServicesGrid lang="id" />
+  <FeaturedWork lang="id" />
+  <Process lang="id" />
+  <WhyUs lang="id" />
+  <TechStack lang="id" />
+  <Testimonials lang="id" />
+  <Faq lang="id" />
+  <CtaBand lang="id" />
 </Base>

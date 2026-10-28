@@ -3,12 +3,15 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { projects } from '../../data/projects';
+import { projectsId } from '../../data/projects';
+
+const projects = projectsId;
 ---
 
 <Base
   title="Portfolio"
   description="Portfolio Aksara Developer: website Bandara Abdurachman Saleh Malang dan website portfolio Faraysz. Website yang benar-benar berjalan, bukan mockup."
+  lang="id"
 >
   <PageHero
     eyebrow="Portfolio"
@@ -20,7 +23,7 @@ import { projects } from '../../data/projects';
   <section class="shell border-t border-line pb-16">
     <div class="grid gap-5 sm:grid-cols-2">
       {projects.map((project) => (
-        <ProjectCard project={project} compact={true} />
+        <ProjectCard project={project} compact={true} lang="id" />
       ))}
     </div>
 
@@ -33,6 +36,7 @@ import { projects } from '../../data/projects';
   </section>
 
   <CtaBand
+    lang="id"
     title="Project Anda bisa jadi studi kasus berikutnya."
     description="Kami senang mengerjakan hal yang belum pernah kami kerjakan, selama masalahnya jelas. Mulai dari percakapan singkat."
     secondaryLabel="Lihat layanan"
