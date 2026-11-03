@@ -10,7 +10,7 @@ const projects = projectsEn;
 
 <Base
   title="Portfolio"
-  description="Aksara Developer portfolio: Abdurachman Saleh Airport Malang website and Faraysz portfolio. Real production software, never mockups."
+  description="Aksara Developer portfolio: Faraysz portfolio website. Real production software, never mockups."
   lang="en"
 >
   <PageHero
@@ -21,9 +21,9 @@ const projects = projectsEn;
   />
 
   <section class="shell border-t border-line pb-16">
-    <div class="grid gap-5 sm:grid-cols-2">
+    <div class="space-y-8">
       {projects.map((project) => (
-        <ProjectCard project={project} compact={true} lang="en" />
+        <ProjectCard project={project} lang="en" />
       ))}
     </div>
 

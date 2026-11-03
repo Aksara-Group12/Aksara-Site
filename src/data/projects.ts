@@ -20,30 +20,6 @@ export interface Project {
 
 export const projectsId: Project[] = [
   {
-    slug: 'bandara-abdurachman-saleh',
-    title: 'Website Bandara Abdurachman Saleh',
-    client: 'UPT Pelayanan Jasa Kebandarudaraan Abdurachman Saleh',
-    industry: 'Transportasi & Penerbangan',
-    year: '2026',
-    service: 'Website Bisnis',
-    serviceSlug: 'website-bisnis',
-    shortSummary:
-      'Portal informasi resmi penerbangan, jadwal harian, dan panduan penumpang Bandara Abdurachman Saleh Malang.',
-    summary:
-      'Portal informasi lengkap Bandara Abdurachman Saleh Malang yang menyajikan jadwal penerbangan real-time, estimasi penumpang, peta rute udara, panduan transportasi darat, profil kebandarudaraan, serta regulasi penumpang dalam dua bahasa (Indonesia & Inggris).',
-    url: 'https://abdurachmansaleh-airport.my.id/',
-    domain: 'abdurachmansaleh-airport.my.id',
-    preview: '/preview/bandara-abdurachman-saleh.webp',
-    previewAlt: 'Tampilan beranda website Bandara Abdurachman Saleh Malang',
-    highlights: [
-      'Jadwal penerbangan dan estimasi penumpang harian',
-      'Peta rute, transportasi, dan panduan penumpang',
-      'Profil, sejarah, dan struktur organisasi bandara',
-      'Pilihan bahasa Indonesia dan Inggris',
-    ],
-    stack: ['Laravel', 'Tailwind CSS', 'AOS'],
-  },
-  {
     slug: 'faraysz-portfolio',
     title: 'Website Portfolio Faraysz',
     client: 'Faraytodi Atmajaya — Personal',
@@ -70,30 +46,6 @@ export const projectsId: Project[] = [
 ];
 
 export const projectsEn: Project[] = [
-  {
-    slug: 'bandara-abdurachman-saleh',
-    title: 'Abdurachman Saleh Airport Website',
-    client: 'Abdurachman Saleh Airport Authority',
-    industry: 'Transportation & Aviation',
-    year: '2026',
-    service: 'Business Website',
-    serviceSlug: 'website-bisnis',
-    shortSummary:
-      'Official flight schedule, daily operational portal, and passenger guide for Abdurachman Saleh Airport Malang.',
-    summary:
-      'A comprehensive airport portal delivering real-time daily flight schedules, passenger traffic estimations, flight route maps, ground transit guides, airport profile, and aviation regulations in dual languages (Indonesian & English).',
-    url: 'https://abdurachmansaleh-airport.my.id/',
-    domain: 'abdurachmansaleh-airport.my.id',
-    preview: '/preview/bandara-abdurachman-saleh.webp',
-    previewAlt: 'Home view of Abdurachman Saleh Airport Malang website',
-    highlights: [
-      'Real-time flight schedules and daily passenger estimates',
-      'Route maps, ground transit, and terminal passenger guides',
-      'Airport historical profile and organizational structure',
-      'Bilingual support (Indonesian & English)',
-    ],
-    stack: ['Laravel', 'Tailwind CSS', 'AOS'],
-  },
   {
     slug: 'faraysz-portfolio',
     title: 'Faraysz Portfolio Website',

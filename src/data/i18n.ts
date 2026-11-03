@@ -148,6 +148,7 @@ export const ui = {
     projectStackTitle: 'Teknologi / Stack Digunakan',
     projectCloseBtn: 'Tutup',
     projectVisitBtn: 'Kunjungi Website',
+    projectOpenNewTab: 'Buka di tab baru',
   },
   en: {
     nav: [
@@ -252,5 +253,6 @@ export const ui = {
     projectStackTitle: 'Technologies / Stack Used',
     projectCloseBtn: 'Close',
     projectVisitBtn: 'Visit Website',
+    projectOpenNewTab: 'Open in new tab',
   },
 } as const;

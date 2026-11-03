@@ -10,7 +10,7 @@ const projects = projectsId;
 
 <Base
   title="Portfolio"
-  description="Portfolio Aksara Developer: website Bandara Abdurachman Saleh Malang dan website portfolio Faraysz. Website yang benar-benar berjalan, bukan mockup."
+  description="Portfolio Aksara Developer: website portfolio Faraysz. Website yang benar-benar berjalan, bukan mockup."
   lang="id"
 >
   <PageHero
@@ -21,9 +21,9 @@ const projects = projectsId;
   />
 
   <section class="shell border-t border-line pb-16">
-    <div class="grid gap-5 sm:grid-cols-2">
+    <div class="space-y-8">
       {projects.map((project) => (
-        <ProjectCard project={project} compact={true} lang="id" />
+        <ProjectCard project={project} lang="id" />
       ))}
     </div>
 
