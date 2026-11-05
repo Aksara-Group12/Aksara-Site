@@ -6,13 +6,14 @@ export const siteId = {
   tagline: 'Software house untuk bisnis yang serius tumbuh.',
   description:
     'Aksara Developer membangun website, aplikasi web, dan aplikasi mobile untuk UMKM dan startup Indonesia. Tim kecil, komunikasi langsung, source code milik Anda sepenuhnya.',
-  url: 'https://aksaradev.my.id',
+  url: 'https://aksaradeveloper.my.id',
   email: 'aksaradeveloper2026@gmail.com',
   phone: '+62 813-1355-613',
   whatsapp: '628131355613',
   whatsappMessage: 'Halo Aksara, saya mau diskusi soal project digital.',
   address: 'Jember, Indonesia',
   founded: 2026,
+  web3formsKey: 'a38f5c77-586a-4414-8f12-d8fbca116ba2',
   socials: {
     instagram: 'https://instagram.com/aksara_developer',
   },
@@ -21,7 +22,7 @@ export const siteId = {
     { value: '2', label: 'Orang di tim' },
     { value: 'Jember', label: 'Basis kerja' },
   ],
-} as const;
+};
 
 export const siteEn = {
   name: 'Aksara Developer',
@@ -36,6 +37,7 @@ export const siteEn = {
   whatsappMessage: 'Hello Aksara, I would like to discuss a digital project.',
   address: 'Jember, Indonesia',
   founded: 2026,
+  web3formsKey: 'a38f5c77-586a-4414-8f12-d8fbca116ba2',
   socials: {
     instagram: 'https://instagram.com/aksara_developer',
   },
@@ -44,7 +46,7 @@ export const siteEn = {
     { value: '2', label: 'Team members' },
     { value: 'Jember', label: 'Home base' },
   ],
-} as const;
+};
 
 // Default is Indonesian
 export const site = siteId;

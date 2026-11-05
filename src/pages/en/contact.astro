@@ -63,14 +63,14 @@ const interests = [
         <!-- Main Contact Form -->
         <form
           id="contact-form"
-          action={`https://formsubmit.co/ajax/${site.email}`}
+          action="https://api.web3forms.com/submit"
           method="POST"
           class="space-y-6"
-          data-email={site.email}
+          data-key={site.web3formsKey}
         >
-          <input type="hidden" name="_subject" value="New inquiry from Aksara Developer website (EN)" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="access_key" value={site.web3formsKey} />
+          <input type="hidden" name="subject" value="New inquiry from Aksara Developer website (EN)" />
+          <input type="hidden" name="from_name" value="Aksara Developer Website" />
 
           <!-- Error Alert -->
           <div
@@ -263,23 +263,23 @@ const interests = [
 
       if (errorBox) errorBox.classList.add('hidden');
 
-      const emailTarget = form.dataset.email || 'aksaradeveloper2026@gmail.com';
-      const endpoint = `https://formsubmit.co/ajax/${emailTarget}`;
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
 
       try {
-        const formData = new FormData(form);
-
-        const response = await fetch(endpoint, {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
-          body: formData,
+          body: json,
         });
 
         const data = await response.json();
 
-        if (response.ok && (data.success === 'true' || data.success === true)) {
+        if (response.ok && (data.success === true || data.success === 'true')) {
           // Success: hide form, show success state without redirect
           form.classList.add('hidden');
           if (successBox) {

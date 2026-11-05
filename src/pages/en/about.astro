@@ -73,7 +73,7 @@ const techLayers = techLayersEn;
     </div>
   </section>
 
-  <section class="relative border-t border-line py-20">
+  <section class="relative border-t border-line py-20 tech-section">
     <div class="shell">
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
         <div class="reveal">
@@ -86,9 +86,9 @@ const techLayers = techLayersEn;
           {
             techLayers.map((layer) => (
               <div class="grid gap-3 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                <h3 class="text-sm font-semibold text-navy-950">{layer.group}</h3>
+                <h3 class="tech-label text-sm font-semibold text-navy-950">{layer.group}</h3>
                 <div class="flex flex-wrap gap-1.5">
-                  {layer.items.map((item) => <span class="chip">{item}</span>)}
+                  {layer.items.map((item) => <span class="tech-item chip">{item}</span>)}
                 </div>
               </div>
             ))
@@ -130,3 +130,63 @@ const techLayers = techLayersEn;
     secondaryHref="/en/portfolio"
   />
 </Base>
+
+
+<style>
+  /* Khusus animasi interaktif saat disentuh / di-hover pada bagian Alat Kerja */
+  .tech-section .tech-label {
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+  .tech-section .tech-label:hover {
+    color: var(--color-gold-600);
+    transform: translateX(3px);
+  }
+
+  .tech-section .tech-item {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition:
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease,
+      box-shadow 0.25s ease,
+      letter-spacing 0.22s ease;
+  }
+
+  /* Efek animasi saat kursor/jari menyentuh teks teknologi */
+  .tech-section .tech-item:hover {
+    transform: translateY(-3px) scale(1.08);
+    border-color: rgba(200, 150, 60, 0.75);
+    background-color: rgba(200, 150, 60, 0.12);
+    color: var(--color-navy-950);
+    letter-spacing: 0.04em;
+    box-shadow:
+      0 6px 14px -3px rgba(10, 28, 51, 0.14),
+      0 0 14px 1px rgba(200, 150, 60, 0.28);
+    animation: techChipWiggle 0.45s ease-in-out;
+  }
+
+  /* Animasi sentuhan membal (wiggle pop) */
+  @keyframes techChipWiggle {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    35% {
+      transform: translateY(-4px) scale(1.1) rotate(-1.5deg);
+    }
+    70% {
+      transform: translateY(-3px) scale(1.07) rotate(1deg);
+    }
+    100% {
+      transform: translateY(-3px) scale(1.08) rotate(0deg);
+    }
+  }
+
+  /* Feedback saat ditekan/disentuh di smartphone atau diklik */
+  .tech-section .tech-item:active {
+    transform: translateY(0) scale(0.95);
+    transition-duration: 0.1s;
+  }
+</style>
